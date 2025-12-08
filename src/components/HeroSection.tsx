@@ -141,14 +141,14 @@ export default function HeroSection({ startAnimation = true }: { startAnimation?
         >
           <a
             href="/informations"
-            className="inline-block bg-red-600 text-white rounded-md font-light text-xs sm:text-sm md:text-base tracking-[0.12em] uppercase hover:bg-red-700 transition-all duration-300 border border-red-600/20 hover:border-red-700/30 shadow-sm hover:shadow-md px-3 py-1.5 sm:px-4 sm:py-2"
+            className="inline-block bg-transparent text-red-600 rounded-md font-light text-xs sm:text-sm md:text-base tracking-[0.12em] uppercase hover:bg-red-50/50 transition-all duration-300 border-2 border-red-600/40 hover:border-red-600/60 shadow-sm hover:shadow-md px-3 py-1.5 sm:px-4 sm:py-2"
           >
             Informations
           </a>
           
           <a
             href="/rsvp"
-            className="inline-block bg-transparent text-red-600 rounded-md font-light text-xs sm:text-sm md:text-base tracking-[0.12em] uppercase hover:bg-red-50/50 transition-all duration-300 border-2 border-red-600/40 hover:border-red-600/60 shadow-sm hover:shadow-md px-3 py-1.5 sm:px-4 sm:py-2"
+            className="inline-block bg-red-600 text-white rounded-md font-light text-xs sm:text-sm md:text-base tracking-[0.12em] uppercase hover:bg-red-700 transition-all duration-300 border border-red-600/20 hover:border-red-700/30 shadow-sm hover:shadow-md px-3 py-1.5 sm:px-4 sm:py-2"
           >
             Répondre
           </a>

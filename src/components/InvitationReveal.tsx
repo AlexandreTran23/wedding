@@ -14,6 +14,7 @@ export default function InvitationReveal({ children, onOpen }: InvitationRevealP
   const leftPanelRef = useRef<HTMLDivElement>(null);
   const rightPanelRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLDivElement>(null);
+  const decorationsRef = useRef<HTMLDivElement>(null);
   const [isOpened, setIsOpened] = useState(false);
 
   useEffect(() => {
@@ -47,6 +48,15 @@ export default function InvitationReveal({ children, onOpen }: InvitationRevealP
         ease: 'back.in(1.7)',
       })
         .to(
+          decorationsRef.current,
+          {
+            opacity: 0,
+            duration: 0.4,
+            ease: 'power1.out',
+          },
+          '<',
+        )
+        .to(
           [leftPanelRef.current, rightPanelRef.current],
           {
             rotationY: (i: number) => (i === 0 ? -140 : 140),
@@ -79,43 +89,7 @@ export default function InvitationReveal({ children, onOpen }: InvitationRevealP
         className="fixed inset-0 z-100 flex items-center justify-center perspective-[2000px] overflow-hidden bg-linear-to-br from-red-900 via-red-800 to-red-700"
       >
         {/* Floral background on closed envelope (above panels) */}
-        <div className="absolute inset-0 z-20 pointer-events-none overflow-hidden opacity-95">
-          {/* Left floral image */}
-          <div className="absolute left-0 top-6 w-64 sm:w-72 md:w-80" style={{ filter: 'brightness(1.15) saturate(1.1)' }}>
-            <Image
-              src="/image_lettre_fleur1_new.png"
-              alt="Décoration florale"
-              width={600}
-              height={600}
-              className="w-full h-auto object-contain"
-              priority
-            />
-          </div>
-
-          {/* Right floral image */}
-          <div className="absolute right-0 bottom-6 w-64 sm:w-72 md:w-80" style={{ filter: 'brightness(1.15) saturate(1.1)' }}>
-            <Image
-              src="/image_lettre_fleur2_new.png"
-              alt="Décoration florale"
-              width={600}
-              height={600}
-              className="w-full h-auto object-contain"
-              priority
-            />
-          </div>
-
-          {/* Center floral image */}
-          <div className="absolute left-1/2 top-1/2 w-72 sm:w-80 md:w-96 -translate-x-1/2 -translate-y-1/2" style={{ filter: 'brightness(1.1) saturate(1.1)' }}>
-            <Image
-              src="/image_lettre_fleur3_new.png"
-              alt="Décoration florale"
-              width={600}
-              height={600}
-              className="w-full h-auto object-contain"
-              priority
-            />
-          </div>
-
+        <div ref={decorationsRef} className="absolute inset-0 z-20 pointer-events-none overflow-hidden opacity-95">
           {/* Stamp */}
           <div className="absolute left-6 bottom-6 sm:left-10 sm:bottom-10 w-20 sm:w-24 md:w-28 opacity-80 drop-shadow-[0_0_10px_rgba(0,0,0,0.5)]">
             <Image
@@ -168,8 +142,8 @@ export default function InvitationReveal({ children, onOpen }: InvitationRevealP
               </span>
             </div>
           </div>
-          <span className="font-display text-red-100 text-xs md:text-sm tracking-[0.25em] uppercase opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
-            Ouvrir l&apos;invitation
+          <span className="font-display text-red-100 text-xs md:text-sm tracking-[0.25em] uppercase opacity-90 transition-all duration-500">
+            Cliquer pour ouvrir l&apos;invitation
           </span>
         </div>
       </div>

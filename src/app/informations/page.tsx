@@ -71,14 +71,24 @@ export default function InformationsPage() {
               73000 Chambéry, France
             </p>
           </div>
-          <a
-            href="https://www.google.com/maps/search/?api=1&query=Château+de+Candie,+533+Rue+du+Bois+de+Candie,+73000+Chambéry,+France"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block mt-4 px-5 sm:px-6 py-2 sm:py-2.5 text-red-600 border border-red-600/40 rounded-sm font-light text-xs sm:text-sm tracking-wide uppercase hover:bg-red-50 hover:border-red-600 transition-all"
-          >
-            Voir sur la carte
-          </a>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-6">
+            <a
+              href="https://www.google.com/maps/search/?api=1&query=Château+de+Candie,+533+Rue+du+Bois+de+Candie,+73000+Chambéry,+France"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block px-5 sm:px-6 py-2 sm:py-2.5 text-red-600 border border-red-600/40 rounded-sm font-light text-xs sm:text-sm tracking-wide uppercase hover:bg-red-50 hover:border-red-600 transition-all"
+            >
+              Voir sur la carte
+            </a>
+            <a
+              href="https://chateaudecandie.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block px-5 sm:px-6 py-2 sm:py-2.5 text-white bg-red-600 border border-red-600 rounded-sm font-light text-xs sm:text-sm tracking-wide uppercase hover:bg-red-700 hover:border-red-700 transition-all shadow-sm"
+            >
+              Plus d&apos;informations sur le lieu
+            </a>
+          </div>
         </div>
       </AnimatedSection>
 
