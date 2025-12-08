@@ -89,7 +89,13 @@ export default function HeroSection({ startAnimation = true }: { startAnimation?
       {/* Content */}
       <div className="relative z-20 text-center px-4 sm:px-8 md:px-10 lg:px-12 max-w-4xl mx-auto space-y-3 sm:space-y-4 md:space-y-5">
         <div ref={namesRef} className="space-y-2">
-          <p className="text-red-600 font-display text-sm sm:text-base md:text-lg tracking-[0.2em] font-light">
+          <p
+            className="text-red-600 text-sm sm:text-base md:text-lg tracking-[0.2em] font-light"
+            style={{
+              fontFamily:
+                "system-ui, -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', 'Noto Sans CJK SC', sans-serif",
+            }}
+          >
             我们结婚了
           </p>
           <p className="text-red-600 font-display text-xs sm:text-sm md:text-base tracking-[0.3em] uppercase font-light">

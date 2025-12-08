@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState, type ReactNode } from 'react';
+import Image from 'next/image';
 import { gsap } from 'gsap';
 
 interface InvitationRevealProps {
@@ -75,12 +76,67 @@ export default function InvitationReveal({ children, onOpen }: InvitationRevealP
       {/* Cover / Envelope */}
       <div
         ref={containerRef}
-        className="fixed inset-0 z-[100] flex items-center justify-center perspective-[2000px] overflow-hidden bg-gradient-to-br from-red-900 via-red-800 to-red-700"
+        className="fixed inset-0 z-100 flex items-center justify-center perspective-[2000px] overflow-hidden bg-linear-to-br from-red-900 via-red-800 to-red-700"
       >
+        {/* Floral background on closed envelope (above panels) */}
+        <div className="absolute inset-0 z-20 pointer-events-none overflow-hidden opacity-95">
+          {/* Left floral image */}
+          <div className="absolute left-0 top-6 w-64 sm:w-72 md:w-80" style={{ filter: 'brightness(1.15) saturate(1.1)' }}>
+            <Image
+              src="/image_lettre_fleur1_new.png"
+              alt="Décoration florale"
+              width={600}
+              height={600}
+              className="w-full h-auto object-contain"
+              priority
+            />
+          </div>
+
+          {/* Right floral image */}
+          <div className="absolute right-0 bottom-6 w-64 sm:w-72 md:w-80" style={{ filter: 'brightness(1.15) saturate(1.1)' }}>
+            <Image
+              src="/image_lettre_fleur2_new.png"
+              alt="Décoration florale"
+              width={600}
+              height={600}
+              className="w-full h-auto object-contain"
+              priority
+            />
+          </div>
+
+          {/* Center floral image */}
+          <div className="absolute left-1/2 top-1/2 w-72 sm:w-80 md:w-96 -translate-x-1/2 -translate-y-1/2" style={{ filter: 'brightness(1.1) saturate(1.1)' }}>
+            <Image
+              src="/image_lettre_fleur3_new.png"
+              alt="Décoration florale"
+              width={600}
+              height={600}
+              className="w-full h-auto object-contain"
+              priority
+            />
+          </div>
+
+          {/* Stamp */}
+          <div className="absolute left-6 bottom-6 sm:left-10 sm:bottom-10 w-20 sm:w-24 md:w-28 opacity-80 drop-shadow-[0_0_10px_rgba(0,0,0,0.5)]">
+            <Image
+              src="/png-clipart-double-happiness-symbol-jasmine-tea-miscellaneous-photography-removebg-preview 1.png"
+              alt="Timbre double bonheur"
+              width={300}
+              height={300}
+              className="w-full h-auto object-contain"
+              priority
+              style={{
+                filter:
+                  'sepia(1) saturate(2.2) hue-rotate(-15deg) brightness(1.05)',
+              }}
+            />
+          </div>
+        </div>
+
         {/* Left Panel */}
         <div
           ref={leftPanelRef}
-          className="absolute left-0 top-0 w-1/2 h-full bg-gradient-to-br from-red-900 via-red-800 to-red-700 border-r border-red-500/40 origin-left flex items-center justify-end shadow-[5px_0_30px_rgba(0,0,0,0.45)]"
+          className="absolute left-0 top-0 w-1/2 h-full bg-linear-to-br from-red-900 via-red-800 to-red-700 border-r border-red-500/40 origin-left flex items-center justify-end shadow-[5px_0_30px_rgba(0,0,0,0.45)] z-10"
           style={{ transformStyle: 'preserve-3d' }}
         >
           <div className="absolute inset-6 border border-red-gold/50" />
@@ -90,7 +146,7 @@ export default function InvitationReveal({ children, onOpen }: InvitationRevealP
         {/* Right Panel */}
         <div
           ref={rightPanelRef}
-          className="absolute right-0 top-0 w-1/2 h-full bg-gradient-to-bl from-red-900 via-red-800 to-red-700 border-l border-red-500/40 origin-right flex items-center justify-start shadow-[-5px_0_30px_rgba(0,0,0,0.45)]"
+          className="absolute right-0 top-0 w-1/2 h-full bg-linear-to-bl from-red-900 via-red-800 to-red-700 border-l border-red-500/40 origin-right flex items-center justify-start shadow-[-5px_0_30px_rgba(0,0,0,0.45)] z-10"
           style={{ transformStyle: 'preserve-3d' }}
         >
           <div className="absolute inset-6 border border-red-gold/50" />
