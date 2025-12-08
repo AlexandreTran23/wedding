@@ -91,7 +91,7 @@ export default function InvitationReveal({ children, onOpen }: InvitationRevealP
         {/* Floral background on closed envelope (above panels) */}
         <div ref={decorationsRef} className="absolute inset-0 z-20 pointer-events-none overflow-hidden opacity-95">
           {/* Stamp */}
-          <div className="absolute left-6 bottom-6 sm:left-10 sm:bottom-10 w-20 sm:w-24 md:w-28 opacity-80 drop-shadow-[0_0_10px_rgba(0,0,0,0.5)]">
+          <div className="absolute left-10 bottom-24 sm:left-10 sm:bottom-10 w-20 sm:w-24 md:w-28 opacity-80 drop-shadow-[0_0_10px_rgba(0,0,0,0.5)]">
             <Image
               src="/png-clipart-double-happiness-symbol-jasmine-tea-miscellaneous-photography-removebg-preview 1.png"
               alt="Timbre double bonheur"

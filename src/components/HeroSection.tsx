@@ -16,6 +16,8 @@ export default function HeroSection({ startAnimation = true }: { startAnimation?
   const dateRef = useRef<HTMLDivElement>(null);
   const namesRef = useRef<HTMLParagraphElement>(null);
   const buttonsRef = useRef<HTMLDivElement>(null);
+  const leftPhotoRef = useRef<HTMLDivElement>(null);
+  const rightPhotoRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!startAnimation) return;
@@ -54,6 +56,22 @@ export default function HeroSection({ startAnimation = true }: { startAnimation?
         duration: 1,
         ease: 'power2.out',
       }, '-=0.4');
+
+      if (leftPhotoRef.current && rightPhotoRef.current) {
+        tl.fromTo([leftPhotoRef.current, rightPhotoRef.current], 
+          {
+            opacity: 0,
+            x: (i) => (i === 0 ? -30 : 30),
+          },
+          {
+            opacity: 1,
+            x: 0,
+            duration: 1.5,
+            ease: 'power2.out',
+          },
+          '-=0.8'
+        );
+      }
     }, heroRef);
 
     return () => ctx.revert();
@@ -84,6 +102,41 @@ export default function HeroSection({ startAnimation = true }: { startAnimation?
           className="object-contain"
           priority
         />
+      </div>
+
+      {/* Couple Photos */}
+      <div 
+        ref={leftPhotoRef}
+        className="absolute left-4 top-40 md:left-8 md:top-44 lg:left-12 lg:top-1/2 lg:-translate-y-1/2 z-10"
+      >
+        <div className="w-24 h-32 md:w-32 md:h-44 lg:w-64 lg:h-80 p-1.5 md:p-2 lg:p-3 bg-white shadow-xl rotate-[-6deg] hover:scale-105 hover:rotate-[-3deg] transition-all duration-500 cursor-pointer">
+          <div className="relative w-full h-full overflow-hidden">
+            <Image
+              src="/alex_et_sam_1.jpg"
+              alt="Alexandre et Samantha"
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100px, (max-width: 1024px) 150px, 300px"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div 
+        ref={rightPhotoRef}
+        className="absolute right-4 bottom-36 md:right-8 md:bottom-40 lg:right-12 lg:top-1/2 lg:-translate-y-1/2 z-10"
+      >
+        <div className="w-24 h-32 md:w-32 md:h-44 lg:w-64 lg:h-80 p-1.5 md:p-2 lg:p-3 bg-white shadow-xl rotate-[6deg] hover:scale-105 hover:rotate-[3deg] transition-all duration-500 cursor-pointer">
+          <div className="relative w-full h-full overflow-hidden">
+            <Image
+              src="/alex_et_sam_2.jpeg"
+              alt="Alexandre et Samantha"
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100px, (max-width: 1024px) 150px, 300px"
+            />
+          </div>
+        </div>
       </div>
 
       {/* Content */}
