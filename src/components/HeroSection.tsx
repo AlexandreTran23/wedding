@@ -151,9 +151,12 @@ export default function HeroSection({ startAnimation = true }: { startAnimation?
           >
             我们结婚了
           </p>
-          <p className="text-red-600 font-display text-xs sm:text-sm md:text-base tracking-[0.3em] uppercase font-light">
-            Nous nous marions
-          </p>
+          <div className="flex flex-col items-center gap-1">
+            <p className="text-red-600 font-display text-xs sm:text-sm md:text-base tracking-[0.3em] uppercase font-light">
+              Nous nous marions
+            </p>
+            <span className="text-red-500 text-base sm:text-lg md:text-xl">♥</span>
+          </div>
         </div>
         
         <h1

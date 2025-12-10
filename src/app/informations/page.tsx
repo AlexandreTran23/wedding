@@ -56,10 +56,13 @@ export default function InformationsPage() {
                 Le Château de Candie
               </h2>
             </div>
-            <p className="text-center text-gray-600 text-sm sm:text-base max-w-2xl mx-auto mb-4 sm:mb-6">
+            <p className="text-center text-gray-600 text-sm sm:text-base max-w-2xl mx-auto mb-2 sm:mb-3">
               Nous sommes impatients de vous retrouver tous ensemble pour célébrer notre mariage dans une ambiance chaleureuse et conviviale,
               et très heureux de vous compter parmi nos invités.
             </p>
+            <div className="flex justify-center mb-4 sm:mb-6">
+              <span className="text-red-500 text-lg sm:text-xl">♥</span>
+            </div>
             
             <div className="flex justify-center w-full">
               <div className="relative aspect-4/3 overflow-hidden rounded-sm w-full md:w-3/4 lg:w-2/3">
@@ -222,12 +225,15 @@ export default function InformationsPage() {
       {/* Footer */}
       <footer className="w-full py-6 sm:py-8 md:py-8 bg-white border-t border-red-500/20 text-center">
         <div className="w-full mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
-        <p className="font-display text-lg sm:text-xl text-red-600 mb-2 font-light tracking-wide">
-          Avec tout notre amour
-        </p>
-        <p className="text-gray-600 text-base sm:text-lg font-light tracking-wide">
-          Alexandre & Samantha
-        </p>
+          <p className="font-display text-lg sm:text-xl text-red-600 mb-2 font-light tracking-wide">
+            Avec tout notre amour
+          </p>
+          <p className="text-gray-600 text-base sm:text-lg font-light tracking-wide">
+            Alexandre & Samantha
+          </p>
+          <div className="mt-1 mb-4">
+            <span className="text-red-500 text-lg sm:text-xl">♥</span>
+          </div>
           <div className="mt-8 flex justify-center gap-2">
             <div className="w-1.5 h-1.5 rounded-full bg-red-600"></div>
             <div className="w-1.5 h-1.5 rounded-full bg-red-600"></div>
