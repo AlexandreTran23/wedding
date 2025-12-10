@@ -347,7 +347,7 @@ En attente d'un partenaire : ${formData.waitingForPartner ? 'OUI' : 'NON'}
                   <h2 className="font-display text-3xl sm:text-4xl text-gray-900 mb-4">Le repas du lendemain</h2>
                   <p className="text-gray-500 text-sm sm:text-base max-w-2xl mx-auto">
                     Le château nous propose un brunch ou un barbecue le lendemain, pour prolonger les retrouvailles dans une ambiance conviviale.
-                    Les deux formules sont sous réserve d&apos;un minimum de 25 personnes et sont intégralement à la charge des invités.
+                    Les deux formules sont sous réserve d&apos;un minimum de 25 personnes et sont à la charge des invités.
                   </p>
                 </div>
 
@@ -641,7 +641,7 @@ En attente d'un partenaire : ${formData.waitingForPartner ? 'OUI' : 'NON'}
                       />
                       <div className="text-sm">
                         <span className="font-medium text-gray-900 block mb-1">J&apos;attends l&apos;inscription d&apos;un(e) partenaire</span>
-                        <span className="text-gray-500">Cochez cette case si vous réservez cette chambre pour deux mais que votre accompagnant(e) s&apos;inscrira plus tard, ou si vous souhaitez laisser les autres lits disponibles.</span>
+                        <span className="text-gray-500">Cochez cette case si vous réservez cette chambre pour deux mais que votre accompagnant(e) s&apos;inscrira plus tard.</span>
                       </div>
                     </label>
                   </div>
