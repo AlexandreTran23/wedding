@@ -37,6 +37,7 @@ export default function RSVPPage() {
     phone: '',
     attendance: '',
     meal: '',
+    nextDayMeal: '',
     wantsLodging: false,
     selectedRoomId: '',
     waitingForPartner: false,
@@ -111,8 +112,12 @@ export default function RSVPPage() {
         handleSubmit(); // Si ne vient pas, on soumet direct
         return;
       }
-    }
-    if (step === 2) {
+    } else if (step === 2) {
+      if (!formData.nextDayMeal) {
+        alert('Merci de choisir une option pour le repas du lendemain');
+        return;
+      }
+    } else if (step === 3) {
       if (formData.isFamilyPreBooked) {
         handleSubmit(); // Si famille pré-réservée, on soumet
         return;
@@ -143,6 +148,25 @@ En attente d'un partenaire : ${formData.waitingForPartner ? 'OUI' : 'NON'}
       `.trim();
     }
 
+    // Construction du choix de repas du lendemain
+    let nextDayText = 'Repas du lendemain : non renseigné.';
+    switch (formData.nextDayMeal) {
+      case 'bbq_only':
+        nextDayText = "Souhaite participer au repas du lendemain uniquement si c'est un barbecue.";
+        break;
+      case 'brunch_only':
+        nextDayText = "Souhaite participer au repas du lendemain uniquement si c'est un brunch.";
+        break;
+      case 'both':
+        nextDayText = 'Les deux options (brunch ou barbecue) lui conviennent.';
+        break;
+      case 'none':
+        nextDayText = "Ne pourra pas participer au repas du lendemain.";
+        break;
+    }
+
+    const messageText = `${lodgingText}\n\n--- REPAS DU LENDEMAIN ---\n${nextDayText}`;
+
     // Enregistrement dans la base Supabase
     try {
       const mealChoice =
@@ -156,10 +180,11 @@ En attente d'un partenaire : ${formData.waitingForPartner ? 'OUI' : 'NON'}
         phone: formData.phone || null,
         attendance: formData.attendance,
         meal_choice: mealChoice,
+        next_day_meal: formData.nextDayMeal || null,
         wants_lodging: formData.wantsLodging,
         room_id: formData.isFamilyPreBooked ? null : formData.selectedRoomId || null,
         is_waiting_for_partner: formData.waitingForPartner,
-        message: lodgingText,
+        message: messageText,
       });
 
       if (error) {
@@ -193,8 +218,9 @@ En attente d'un partenaire : ${formData.waitingForPartner ? 'OUI' : 'NON'}
             <div className="flex gap-1 mt-1">
               <div className={`h-1 w-6 rounded-full transition-colors ${step >= 1 ? 'bg-red-500' : 'bg-red-100'}`} />
               <div className={`h-1 w-6 rounded-full transition-colors ${step >= 2 ? 'bg-red-500' : 'bg-red-100'}`} />
+              <div className={`h-1 w-6 rounded-full transition-colors ${step >= 3 ? 'bg-red-500' : 'bg-red-100'}`} />
               {formData.wantsLodging && (
-                 <div className={`h-1 w-6 rounded-full transition-colors ${step >= 3 ? 'bg-red-500' : 'bg-red-100'}`} />
+                 <div className={`h-1 w-6 rounded-full transition-colors ${step >= 4 ? 'bg-red-500' : 'bg-red-100'}`} />
               )}
             </div>
           </div>
@@ -307,23 +333,137 @@ En attente d'un partenaire : ${formData.waitingForPartner ? 'OUI' : 'NON'}
               </div>
             )}
 
-            {/* ÉTAPE 2 : CHOIX LOGEMENT */}
+            {/* ÉTAPE 2 : REPAS DU LENDEMAIN */}
             {step === 2 && (
               <div className="space-y-6">
-                 <div className="text-center mb-8">
+                <div className="text-center mb-8">
+                  <h2 className="font-display text-3xl sm:text-4xl text-gray-900 mb-4">Le repas du lendemain</h2>
+                  <p className="text-gray-500 text-sm sm:text-base max-w-2xl mx-auto">
+                    Le château nous propose un brunch ou un barbecue le lendemain, pour prolonger les retrouvailles dans une ambiance conviviale.
+                    Les deux formules sont sous réserve d&apos;un minimum de 25 personnes et sont intégralement à la charge des invités.
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {/* Brunch details */}
+                  <div className="bg-white border border-gray-100 rounded-xl p-4 shadow-sm space-y-2">
+                    <h3 className="font-display text-lg text-gray-900 flex items-center gap-2">
+                      🥐 Brunch du lendemain
+                    </h3>
+                    <p className="text-sm text-gray-600">
+                      <strong>39€ / personne</strong> (35€ sans le forfait vin) — <strong>18€ / enfant</strong> (jusqu&apos;à 12 ans).
+                    </p>
+                    <p className="text-xs text-gray-500">
+                      Buffet sucré-salé à volonté (viennoiseries, pains, gâteaux de Savoie, salades, quiches, charcuteries, fromages, saumon fumé...),
+                      boissons chaudes, jus et vins de Savoie. Service de <strong>10h à 14h30</strong>.
+                    </p>
+                  </div>
+
+                  {/* Barbecue details */}
+                  <div className="bg-white border border-gray-100 rounded-xl p-4 shadow-sm space-y-2">
+                    <h3 className="font-display text-lg text-gray-900 flex items-center gap-2">
+                      🔥 Barbecue du lendemain
+                    </h3>
+                    <p className="text-sm text-gray-600">
+                      <strong>49€ / personne</strong> — <strong>25€ / enfant</strong> (jusqu&apos;à 12 ans).
+                    </p>
+                    <p className="text-xs text-gray-500">
+                      Apéritif, feuilletés, crudités, viandes grillées (dont gigot d&apos;agneau mariné), accompagnements, légumes grillés, mignardises sucrées,
+                      softs, eaux et vins de Savoie. Service de <strong>11h30 à 15h30</strong>.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {/* Choix BBQ seulement */}
+                  <div
+                    onClick={() => setFormData(prev => ({ ...prev, nextDayMeal: 'bbq_only' }))}
+                    className={`cursor-pointer p-4 rounded-xl border-2 transition-all duration-300 text-center space-y-2
+                      ${formData.nextDayMeal === 'bbq_only'
+                        ? 'border-red-500 bg-red-50 ring-1 ring-red-500'
+                        : 'border-gray-200 hover:border-red-200 bg-white'}`}
+                  >
+                    <span className="text-xl">🔥</span>
+                    <p className="text-sm font-medium text-gray-900">
+                      Je souhaite venir seulement si c&apos;est un barbecue
+                    </p>
+                  </div>
+
+                  {/* Choix Brunch seulement */}
+                  <div
+                    onClick={() => setFormData(prev => ({ ...prev, nextDayMeal: 'brunch_only' }))}
+                    className={`cursor-pointer p-4 rounded-xl border-2 transition-all duration-300 text-center space-y-2
+                      ${formData.nextDayMeal === 'brunch_only'
+                        ? 'border-red-500 bg-red-50 ring-1 ring-red-500'
+                        : 'border-gray-200 hover:border-red-200 bg-white'}`}
+                  >
+                    <span className="text-xl">🥐</span>
+                    <p className="text-sm font-medium text-gray-900">
+                      Je souhaite venir seulement si c&apos;est un brunch
+                    </p>
+                  </div>
+
+                  {/* Les deux conviennent */}
+                  <div
+                    onClick={() => setFormData(prev => ({ ...prev, nextDayMeal: 'both' }))}
+                    className={`cursor-pointer p-4 rounded-xl border-2 transition-all duration-300 text-center space-y-2
+                      ${formData.nextDayMeal === 'both'
+                        ? 'border-red-500 bg-red-50 ring-1 ring-red-500'
+                        : 'border-gray-200 hover:border-red-200 bg-white'}`}
+                  >
+                    <span className="text-xl">😊</span>
+                    <p className="text-sm font-medium text-gray-900">
+                      Les deux options me conviennent
+                    </p>
+                  </div>
+
+                  {/* Ne peut pas venir */}
+                  <div
+                    onClick={() => setFormData(prev => ({ ...prev, nextDayMeal: 'none' }))}
+                    className={`cursor-pointer p-4 rounded-xl border-2 transition-all duration-300 text-center space-y-2
+                      ${formData.nextDayMeal === 'none'
+                        ? 'border-gray-600 bg-gray-50 ring-1 ring-gray-600'
+                        : 'border-gray-200 hover:border-gray-300 bg-white'}`}
+                  >
+                    <span className="text-xl">💤</span>
+                    <p className="text-sm font-medium text-gray-900">
+                      Je ne pourrai malheureusement pas venir au repas du lendemain
+                    </p>
+                  </div>
+                </div>
+
+                <button
+                  onClick={nextStep}
+                  className="w-full py-4 bg-red-700 text-white rounded-xl font-medium tracking-wide shadow-lg hover:bg-red-800 transition-all hover:scale-[1.01]"
+                >
+                  Continuer
+                </button>
+              </div>
+            )}
+
+            {/* ÉTAPE 3 : CHOIX LOGEMENT */}
+            {step === 3 && (
+              <div className="space-y-6">
+                <div className="text-center mb-8">
                   <h2 className="font-display text-3xl sm:text-4xl text-gray-900 mb-4">Le Logement au Château</h2>
                   <div className="bg-amber-50 border border-amber-100 p-6 rounded-xl text-left text-sm text-amber-900 leading-relaxed max-w-2xl mx-auto space-y-3">
                     <p>
-                      <strong>🏰 Privatisation :</strong> L&apos;idéal serait de pouvoir remplir toutes les chambres pour privatiser le château dans son ensemble. Cela permettrait de n&apos;avoir aucune personne extérieure au mariage, pour une ambiance plus conviviale et &quot;entre soi&quot;.
+                      <strong>🏰 Privatisation :</strong> L&apos;idéal serait de pouvoir remplir les 45 chambres pour privatiser le château dans son ensemble. Cela permettrait de n&apos;avoir aucune personne extérieure au mariage, pour une ambiance plus conviviale et &quot;entre soi&quot;.
                     </p>
                     <p>
-                      <strong>⚠️ Important :</strong> Si nous n&apos;arrivons pas à remplir toutes les chambres, les pré-sélections pourront être annulées car la privatisation ne sera pas possible.
+                      <strong>⚠️ Places limitées :</strong> Les chambres sont en nombre limité et seront attribuées au fur et à mesure des inscriptions. Si possible, merci de vous inscrire rapidement pour nous aider à sécuriser toutes les chambres.
                     </p>
                     <p>
                       <strong>💶 Coût :</strong> La nuitée est à la charge des invités. Il n&apos;y a aucune obligation de dormir sur place.
                     </p>
                     <p>
                       <strong>💎 Tarif préférentiel :</strong> Nous bénéficions de tarifs avantageux grâce à la réservation de groupe pour la privatisation du domaine.
+                    </p>
+                    <p>
+                      <strong>🧸 Enfants :</strong> Des lits bébé peuvent être ajoutés dans certaines chambres sur demande (dans la limite des disponibilités).
+                    </p>
+                    <p>
+                      <strong>🐾 Animaux :</strong> Les animaux sont acceptés dans certaines chambres, avec un supplément de 15€ par animal et par nuit.
                     </p>
                   </div>
                 </div>
@@ -365,10 +505,9 @@ En attente d'un partenaire : ${formData.waitingForPartner ? 'OUI' : 'NON'}
                       : 'border-gray-100 hover:border-amber-200 bg-white'}`}
                 >
                   <span className="text-2xl">👨‍👩‍👧‍👦</span>
-                  <div className="text-left">
-                    <h3 className="font-display text-lg text-gray-900">Je suis de la famille</h3>
-                    <p className="text-xs text-gray-500">Une chambre a déjà été réservée pour moi</p>
-                  </div>
+                  <p className="text-xs sm:text-sm text-gray-600 text-left">
+                    Une chambre a déjà été réservée pour moi par les mariés
+                  </p>
                 </div>
 
                 <button
@@ -380,8 +519,8 @@ En attente d'un partenaire : ${formData.waitingForPartner ? 'OUI' : 'NON'}
               </div>
             )}
 
-            {/* ÉTAPE 3 : SÉLECTION CHAMBRE */}
-            {step === 3 && (
+            {/* ÉTAPE 4 : SÉLECTION CHAMBRE */}
+            {step === 4 && (
               <div className="space-y-6">
                 <div className="text-center mb-6">
                   <h2 className="font-display text-3xl text-gray-900 mb-2">Choisissez votre chambre</h2>
