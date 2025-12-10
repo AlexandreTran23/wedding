@@ -1,11 +1,31 @@
 'use client';
 
+import { useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import AnimatedSection from '@/components/AnimatedSection';
 
+const INFO_IMAGES = [
+  '/infos-accueil-01.jpg',
+  '/infos-artp4008.jpg',
+  '/infos-artprism-dji-0953.jpg',
+  '/infos-canide-artprism-47-retouche_3_123516-169097545849643.jpeg',
+  '/infos-chateau-de-candie-exterieur-32-lucas-pavy.jpg',
+  '/infos-espace-detente-feat.jpg',
+  '/infos-piscine-chateau-de-candieartprism.jpg',
+  '/infos-shooting-inspiration-chateau-de-candie-14102024-tad-vision-photographie-291.jpg',
+  '/infos-20240627-105747-768x1364.png',
+];
+
 export default function InformationsPage() {
   const router = useRouter();
+  const carouselRef = useRef<HTMLDivElement | null>(null);
+
+  const scrollCarousel = (direction: 'left' | 'right') => {
+    if (!carouselRef.current) return;
+    const amount = direction === 'left' ? -320 : 320;
+    carouselRef.current.scrollBy({ left: amount, behavior: 'smooth' });
+  };
 
   return (
     <main className="relative min-h-screen bg-white">
@@ -36,6 +56,10 @@ export default function InformationsPage() {
                 Le Château de Candie
               </h2>
             </div>
+            <p className="text-center text-gray-600 text-sm sm:text-base max-w-2xl mx-auto mb-4 sm:mb-6">
+              Nous sommes impatients de vous retrouver tous ensemble pour célébrer notre mariage dans une ambiance chaleureuse et conviviale,
+              et très heureux de vous compter parmi nos invités.
+            </p>
             
             <div className="flex justify-center w-full">
               <div className="relative aspect-4/3 overflow-hidden rounded-sm w-full md:w-3/4 lg:w-2/3">
@@ -47,6 +71,54 @@ export default function InformationsPage() {
                   sizes="(max-width: 768px) 100vw, 80vw"
                 />
               </div>
+            </div>
+          </div>
+        </div>
+      </AnimatedSection>
+
+      {/* Infos Photos Carousel */}
+      <AnimatedSection className="w-full py-4 sm:py-6 md:py-8 bg-white">
+        <div className="w-full mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
+          <div className="w-full mx-auto">
+            <h3 className="font-display text-xl sm:text-2xl md:text-3xl text-gray-900 text-center mb-4 sm:mb-6 tracking-wide">
+              Quelques vues du lieu
+            </h3>
+            <div className="relative">
+              <button
+                type="button"
+                onClick={() => scrollCarousel('left')}
+                className="hidden sm:flex absolute left-0 top-1/2 -translate-y-1/2 z-20 w-8 h-8 items-center justify-center rounded-full bg-white/90 border border-gray-200 shadow-sm hover:bg-white"
+                aria-label="Précédent"
+              >
+                ‹
+              </button>
+              <div
+                ref={carouselRef}
+                className="flex gap-4 overflow-x-auto pb-2 scroll-smooth"
+              >
+                {INFO_IMAGES.map((src, index) => (
+                  <div
+                    key={src}
+                    className="relative min-w-[220px] sm:min-w-[260px] md:min-w-[320px] aspect-[4/3] rounded-lg overflow-hidden bg-gray-100 shadow-sm"
+                  >
+                    <Image
+                      src={src}
+                      alt={`Vue du château ${index + 1}`}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 640px) 70vw, (max-width: 1024px) 40vw, 320px"
+                    />
+                  </div>
+                ))}
+              </div>
+              <button
+                type="button"
+                onClick={() => scrollCarousel('right')}
+                className="hidden sm:flex absolute right-0 top-1/2 -translate-y-1/2 z-20 w-8 h-8 items-center justify-center rounded-full bg-white/90 border border-gray-200 shadow-sm hover:bg-white"
+                aria-label="Suivant"
+              >
+                ›
+              </button>
             </div>
           </div>
         </div>
@@ -96,9 +168,15 @@ export default function InformationsPage() {
       <AnimatedSection className="w-full py-6 sm:py-8 md:py-8 bg-white">
         <div className="w-full mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
           <div className="w-full mx-auto">
-            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-5xl text-gray-900 text-center mb-6 sm:mb-8 md:mb-10 font-light tracking-wide">
+            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-5xl text-gray-900 text-center mb-4 sm:mb-5 md:mb-6 font-light tracking-wide">
               Programme de la Journée
             </h2>
+            <p className="inline-flex items-center justify-center gap-2 text-sm sm:text-base mb-6 sm:mb-8 md:mb-10 px-4 py-2 rounded-full bg-red-50 text-red-700 font-medium mx-auto text-center">
+              <span>🤵‍♂️</span>
+              <span className="text-center">
+                Il n&apos;y a pas de dress code particulier : venez comme vous êtes, élégants et à l&apos;aise.
+              </span>
+            </p>
             
             <div className="relative">
               {/* Vertical Line */}

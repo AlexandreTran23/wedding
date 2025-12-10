@@ -7,6 +7,11 @@ import Image from 'next/image';
 import { supabase } from '@/lib/supabaseClient';
 
 // Types
+interface RoomOccupant {
+  firstName: string;
+  isWaitingForPartner: boolean;
+}
+
 interface Room {
   id: string;
   name: string;
@@ -15,7 +20,7 @@ interface Room {
   public_price: number;
   discount_price: number;
   image_url: string;
-  occupants: string[];
+  occupants: RoomOccupant[];
 }
 
 export default function RSVPPage() {
@@ -48,7 +53,7 @@ export default function RSVPPage() {
             *,
             guests (
               first_name,
-              last_name
+              is_waiting_for_partner
             )
           `)
           .order('name');
@@ -64,7 +69,11 @@ export default function RSVPPage() {
             public_price: room.public_price,
             discount_price: room.discount_price,
             image_url: room.image_url,
-            occupants: room.guests?.map((g: any) => `${g.first_name} ${g.last_name}`) || [],
+            occupants:
+              room.guests?.map((g: any) => ({
+                firstName: g.first_name,
+                isWaitingForPartner: g.is_waiting_for_partner ?? false,
+              })) || [],
           }));
           setRooms(formattedRooms);
         }
@@ -196,10 +205,17 @@ En attente d'un partenaire : ${formData.waitingForPartner ? 'OUI' : 'NON'}
       <AnimatedSection className="w-full py-10 max-w-4xl mx-auto px-4">
         
         {submitted ? (
-          <div className="text-center space-y-4 p-8 bg-white rounded-xl border border-red-100 shadow-xl">
+          <div className="text-center space-y-6 p-8 bg-white rounded-xl border border-red-100 shadow-xl">
             <div className="text-5xl mb-4">✨</div>
             <h2 className="font-display text-3xl text-red-600">Merci pour votre réponse !</h2>
             <p className="text-gray-600">Nous avons hâte de célébrer avec vous.</p>
+            <button
+              type="button"
+              onClick={() => router.push('/')}
+              className="mt-2 inline-flex items-center justify-center px-5 py-2.5 rounded-full bg-red-700 text-white text-sm font-medium tracking-wide shadow-md hover:bg-red-800 transition-colors"
+            >
+              Retour à la page d&apos;accueil
+            </button>
           </div>
         ) : (
           <>
@@ -245,7 +261,7 @@ En attente d'un partenaire : ${formData.waitingForPartner ? 'OUI' : 'NON'}
                       value={formData.phone}
                       onChange={handleChange}
                       className="w-full px-3 py-2.5 border border-gray-200 rounded-lg focus:border-red-400 focus:ring-1 focus:ring-red-400 outline-none"
-                      placeholder="+33 6..."
+                      placeholder="+41 78.."
                     />
                   </div>
 
@@ -276,7 +292,6 @@ En attente d'un partenaire : ${formData.waitingForPartner ? 'OUI' : 'NON'}
                           <option value="">Votre choix...</option>
                           <option value="viande">Viande</option>
                           <option value="poisson">Poisson</option>
-                          <option value="vegetarien">Végétarien</option>
                         </select>
                       </div>
                     )}
@@ -382,7 +397,7 @@ En attente d'un partenaire : ${formData.waitingForPartner ? 'OUI' : 'NON'}
                     rooms.map((room) => {
                     const isSelected = formData.selectedRoomId === room.id;
                     const isFull = room.occupants.length >= room.capacity;
-                    // Mock: si occupants > 0 on considère que c'est "réservé" pour l'exemple, sauf si c'est nous
+                    const hasWaitingPartner = room.occupants.some(o => o.isWaitingForPartner);
                     
                     return (
                       <div 
@@ -430,7 +445,11 @@ En attente d'un partenaire : ${formData.waitingForPartner ? 'OUI' : 'NON'}
                              </div>
                              <div className="text-xs">
                                {room.occupants.length > 0 ? (
-                                 <span className="text-amber-600">Occupé par : {room.occupants.join(', ')}</span>
+                                 <span className={isFull ? 'text-red-600 font-semibold' : 'text-amber-600'}>
+                                   Occupé par : {room.occupants.map(o => o.firstName).join(', ')}
+                                   {hasWaitingPartner && " (en attente d'un(e) partenaire)"}
+                                   {isFull && ' — COMPLET'}
+                                 </span>
                                ) : (
                                  <span className="text-green-600">Disponible</span>
                                )}
