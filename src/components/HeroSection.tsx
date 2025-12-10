@@ -164,9 +164,9 @@ export default function HeroSection({ startAnimation = true }: { startAnimation?
           className="text-6xl sm:text-6xl md:text-7xl lg:text-8xl text-gray-900 leading-[1.05] tracking-wide"
           style={{ fontFamily: 'var(--font-handwriting)' }}
         >
-          <span className="block font-normal mb-1 sm:mb-2">Alexandre</span>
+          <span className="block font-normal mb-1 sm:mb-2">Samantha</span>
           <span className="block text-red-600 text-4xl sm:text-5xl md:text-6xl lg:text-7xl my-3 sm:my-4 md:my-5 font-normal">&</span>
-          <span className="block font-normal mt-1 sm:mt-2">Samantha</span>
+          <span className="block font-normal mt-1 sm:mt-2">Alexandre</span>
         </h1>
         
         <div ref={subtitleRef} className="pt-1 sm:pt-2">
