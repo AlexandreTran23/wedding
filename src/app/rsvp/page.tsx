@@ -477,7 +477,7 @@ En attente d'un partenaire : ${formData.waitingForPartner ? 'OUI' : 'NON'}
                   <h2 className="font-display text-3xl sm:text-4xl text-gray-900 mb-4">Le Logement au Château</h2>
                   <div className="bg-amber-50 border border-amber-100 p-6 rounded-xl text-left text-sm text-amber-900 leading-relaxed max-w-2xl mx-auto space-y-3">
                     <p>
-                      <strong>🏰 Privatisation :</strong> L&apos;idéal serait de pouvoir remplir les 45 chambres pour privatiser le château dans son ensemble. Cela permettrait de n&apos;avoir aucune personne extérieure au mariage, pour une ambiance plus conviviale et &quot;entre soi&quot;.
+                      <strong>🏰 Privatisation :</strong> L&apos;idéal serait de pouvoir remplir les 45 chambres pour privatiser le château dans son ensemble. Cela permettrait de n&apos;avoir aucune personne extérieure au mariage, pour une ambiance plus conviviale et &quot;entre nous&quot;.
                     </p>
                     <p>
                       <strong>⚠️ Places limitées :</strong> Les chambres sont en nombre limité et seront attribuées au fur et à mesure des inscriptions. Si possible, merci de vous inscrire rapidement pour nous aider à sécuriser toutes les chambres.
