@@ -88,6 +88,13 @@ export default function RSVPPage() {
     fetchRooms();
   }, []);
 
+  // Remonter en haut de la page à chaque changement d'étape (utile surtout sur mobile)
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, [step]);
+
   // Gestionnaires
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target;
