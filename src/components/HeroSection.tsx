@@ -107,16 +107,16 @@ export default function HeroSection({ startAnimation = true }: { startAnimation?
       {/* Couple Photos */}
       <div 
         ref={leftPhotoRef}
-        className="absolute left-4 top-40 md:left-8 md:top-44 lg:left-12 lg:top-1/2 lg:-translate-y-1/2 z-10"
+        className="absolute left-4 top-48 md:left-8 md:top-44 lg:left-12 lg:top-1/2 lg:-translate-y-1/2 z-10"
       >
-        <div className="w-24 h-32 md:w-32 md:h-44 lg:w-64 lg:h-80 p-1.5 md:p-2 lg:p-3 bg-white shadow-xl rotate-[-6deg] hover:scale-105 hover:rotate-[-3deg] transition-all duration-500 cursor-pointer">
+        <div className="w-28 h-36 md:w-32 md:h-44 lg:w-64 lg:h-80 p-1.5 md:p-2 lg:p-3 bg-white shadow-xl rotate-[-6deg] hover:scale-105 hover:rotate-[-3deg] transition-all duration-500 cursor-pointer">
           <div className="relative w-full h-full overflow-hidden">
             <Image
               src="/alex_et_sam_1.jpg"
               alt="Alexandre et Samantha"
               fill
               className="object-cover"
-              sizes="(max-width: 768px) 100px, (max-width: 1024px) 150px, 300px"
+              sizes="(max-width: 768px) 130px, (max-width: 1024px) 150px, 300px"
             />
           </div>
         </div>
@@ -126,14 +126,14 @@ export default function HeroSection({ startAnimation = true }: { startAnimation?
         ref={rightPhotoRef}
         className="absolute right-4 bottom-36 md:right-8 md:bottom-40 lg:right-12 lg:top-1/2 lg:-translate-y-1/2 z-10"
       >
-        <div className="w-24 h-32 md:w-32 md:h-44 lg:w-64 lg:h-80 p-1.5 md:p-2 lg:p-3 bg-white shadow-xl rotate-[6deg] hover:scale-105 hover:rotate-[3deg] transition-all duration-500 cursor-pointer">
+        <div className="w-28 h-36 md:w-32 md:h-44 lg:w-64 lg:h-80 p-1.5 md:p-2 lg:p-3 bg-white shadow-xl rotate-[6deg] hover:scale-105 hover:rotate-[3deg] transition-all duration-500 cursor-pointer">
           <div className="relative w-full h-full overflow-hidden">
             <Image
               src="/alex_et_sam_2.jpeg"
               alt="Alexandre et Samantha"
               fill
               className="object-cover"
-              sizes="(max-width: 768px) 100px, (max-width: 1024px) 150px, 300px"
+              sizes="(max-width: 768px) 130px, (max-width: 1024px) 150px, 300px"
             />
           </div>
         </div>
@@ -158,7 +158,7 @@ export default function HeroSection({ startAnimation = true }: { startAnimation?
         
         <h1
           ref={titleRef}
-          className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-gray-900 leading-[1.05] tracking-wide"
+          className="text-6xl sm:text-6xl md:text-7xl lg:text-8xl text-gray-900 leading-[1.05] tracking-wide"
           style={{ fontFamily: 'var(--font-handwriting)' }}
         >
           <span className="block font-normal mb-1 sm:mb-2">Alexandre</span>

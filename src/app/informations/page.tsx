@@ -171,7 +171,7 @@ export default function InformationsPage() {
             <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-5xl text-gray-900 text-center mb-4 sm:mb-5 md:mb-6 font-light tracking-wide">
               Programme de la Journée
             </h2>
-            <p className="inline-flex items-center justify-center gap-2 text-sm sm:text-base mb-6 sm:mb-8 md:mb-10 px-4 py-2 rounded-full bg-red-50 text-red-700 font-medium mx-auto text-center">
+            <p className="flex items-center justify-center gap-2 text-sm sm:text-base mb-6 sm:mb-8 md:mb-10 px-4 py-2 rounded-full bg-red-50 text-red-700 font-medium mx-auto text-center w-fit">
               <span>🤵‍♂️</span>
               <span className="text-center">
                 Il n&apos;y a pas de dress code particulier : venez comme vous êtes, élégants et à l&apos;aise.
