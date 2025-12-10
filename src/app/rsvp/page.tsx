@@ -1,9 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import AnimatedSection from '@/components/AnimatedSection';
 import Image from 'next/image';
+import { supabase } from '@/lib/supabaseClient';
 
 // Types
 interface Room {
@@ -11,37 +12,18 @@ interface Room {
   name: string;
   description: string;
   capacity: number;
-  publicPrice: number;
-  discountPrice: number;
-  image: string;
-  occupants: string[]; // Noms des occupants actuels (mock pour l'instant)
+  public_price: number;
+  discount_price: number;
+  image_url: string;
+  occupants: string[];
 }
-
-// Données des chambres (basées sur votre SQL)
-const ROOMS_DATA: Room[] = [
-  { id: '1', name: 'Chambre 1', description: 'Chambre double confortable avec vue sur le parc.', capacity: 2, publicPrice: 150, discountPrice: 120, image: '/chambre-00000-1.jpg', occupants: [] },
-  { id: '2', name: 'Chambre 2', description: 'Chambre double spacieuse.', capacity: 2, publicPrice: 150, discountPrice: 120, image: '/chambre-00000-1.jpg', occupants: [] },
-  { id: '3', name: 'Chambre 3', description: 'Suite avec balcon.', capacity: 2, publicPrice: 180, discountPrice: 140, image: '/chambre-00000-1.jpg', occupants: [] },
-  { id: '4', name: 'Chambre 4', description: 'Chambre twin cosy.', capacity: 2, publicPrice: 140, discountPrice: 110, image: '/chambre-00000-1.jpg', occupants: [] },
-  { id: '5', name: 'Chambre 5', description: 'Chambre double standard.', capacity: 2, publicPrice: 150, discountPrice: 120, image: '/chambre-00000-1.jpg', occupants: [] },
-  { id: '6', name: 'Chambre 6', description: 'Chambre avec vue sur la cour.', capacity: 2, publicPrice: 150, discountPrice: 120, image: '/chambre-00000-1.jpg', occupants: [] },
-  { id: '7', name: 'Chambre 7', description: 'Chambre historique.', capacity: 2, publicPrice: 160, discountPrice: 130, image: '/chambre-00000-1.jpg', occupants: [] },
-  { id: '8', name: 'Chambre 8', description: 'Chambre double lumineuse.', capacity: 2, publicPrice: 150, discountPrice: 120, image: '/chambre-00000-1.jpg', occupants: [] },
-  { id: '9', name: 'Chambre 9', description: 'Petite suite.', capacity: 2, publicPrice: 170, discountPrice: 135, image: '/chambre-00000-1.jpg', occupants: [] },
-  { id: '10', name: 'Chambre 10', description: 'Chambre calme.', capacity: 2, publicPrice: 140, discountPrice: 110, image: '/chambre-00000-1.jpg', occupants: [] },
-  { id: '11', name: 'Chambre 11', description: 'Chambre double supérieure.', capacity: 2, publicPrice: 160, discountPrice: 130, image: '/chambre-00000-1.jpg', occupants: [] },
-  { id: '12', name: 'Chambre 12', description: 'Chambre avec baignoire.', capacity: 2, publicPrice: 155, discountPrice: 125, image: '/chambre-00000-1.jpg', occupants: [] },
-  { id: '13', name: 'Chambre 13', description: 'Chambre sous les toits.', capacity: 2, publicPrice: 145, discountPrice: 115, image: '/chambre-00000-1.jpg', occupants: [] },
-  { id: '14', name: 'Chambre 14', description: 'Chambre double.', capacity: 2, publicPrice: 150, discountPrice: 120, image: '/chambre-00000-1.jpg', occupants: [] },
-  { id: '15', name: 'Chambre 15', description: 'Grande chambre familiale.', capacity: 4, publicPrice: 200, discountPrice: 160, image: '/chambre-00000-1.jpg', occupants: [] },
-  { id: '16', name: 'Chambre 16', description: 'Chambre double accès PMR.', capacity: 2, publicPrice: 150, discountPrice: 120, image: '/chambre-00000-1.jpg', occupants: [] },
-  { id: '17', name: 'Chambre 17', description: 'Suite nuptiale (réservée).', capacity: 2, publicPrice: 250, discountPrice: 0, image: '/chambre-00000-1.jpg', occupants: ['Alexandre', 'Samantha'] },
-];
 
 export default function RSVPPage() {
   const router = useRouter();
   
   // États
+  const [rooms, setRooms] = useState<Room[]>([]);
+  const [loading, setLoading] = useState(true);
   const [step, setStep] = useState(1);
   const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState({
@@ -53,7 +35,48 @@ export default function RSVPPage() {
     wantsLodging: false,
     selectedRoomId: '',
     waitingForPartner: false,
+    isFamilyPreBooked: false,
   });
+
+  // Fetch rooms from Supabase
+  useEffect(() => {
+    const fetchRooms = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('rooms')
+          .select(`
+            *,
+            guests (
+              first_name,
+              last_name
+            )
+          `)
+          .order('name');
+
+        if (error) throw error;
+
+        if (data) {
+          const formattedRooms: Room[] = data.map((room: any) => ({
+            id: room.id,
+            name: room.name,
+            description: room.description,
+            capacity: room.capacity,
+            public_price: room.public_price,
+            discount_price: room.discount_price,
+            image_url: room.image_url,
+            occupants: room.guests?.map((g: any) => `${g.first_name} ${g.last_name}`) || [],
+          }));
+          setRooms(formattedRooms);
+        }
+      } catch (error) {
+        console.error('Error fetching rooms:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchRooms();
+  }, []);
 
   // Gestionnaires
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -81,6 +104,10 @@ export default function RSVPPage() {
       }
     }
     if (step === 2) {
+      if (formData.isFamilyPreBooked) {
+        handleSubmit(); // Si famille pré-réservée, on soumet
+        return;
+      }
       if (!formData.wantsLodging) {
         handleSubmit(); // Si ne dort pas sur place, on soumet
         return;
@@ -91,34 +118,53 @@ export default function RSVPPage() {
 
   const prevStep = () => setStep(prev => prev - 1);
 
-  const handleSubmit = (e?: React.FormEvent) => {
+  const handleSubmit = async (e?: React.FormEvent) => {
     if (e) e.preventDefault();
-    setSubmitted(true);
-    
-    // Construction de l'email
-    let lodgingText = "Pas de logement souhaité.";
-    if (formData.wantsLodging && formData.selectedRoomId) {
-      const room = ROOMS_DATA.find(r => r.id === formData.selectedRoomId);
+
+    // Construction du texte de logement
+    let lodgingText = 'Pas de logement souhaité.';
+    if (formData.isFamilyPreBooked) {
+      lodgingText = "FAMILLE : Une chambre est déjà réservée pour moi.";
+    } else if (formData.wantsLodging && formData.selectedRoomId) {
+      const room = rooms.find(r => r.id === formData.selectedRoomId);
       lodgingText = `
 Souhaite loger au château : OUI
-Chambre sélectionnée : ${room?.name} (${room?.discountPrice}€)
+Chambre sélectionnée : ${room?.name} (${room?.discount_price}€)
 En attente d'un partenaire : ${formData.waitingForPartner ? 'OUI' : 'NON'}
       `.trim();
     }
 
-    const subject = `RSVP Mariage Alexandre & Samantha - ${formData.firstName} ${formData.lastName}`;
-    const body = `
-Prénom: ${formData.firstName}
-Nom: ${formData.lastName}
-Téléphone: ${formData.phone}
-Présence: ${formData.attendance === 'yes' ? 'Oui' : 'Non'}
-Choix repas: ${formData.meal}
+    // Enregistrement dans la base Supabase
+    try {
+      const mealChoice =
+        formData.attendance === 'yes'
+          ? formData.meal || 'none'
+          : 'none';
 
---- LOGEMENT ---
-${lodgingText}
-    `.trim();
-    
-    window.location.href = `mailto:alexandre.samantha@mariage.fr?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      const { error } = await supabase.from('guests').insert({
+        first_name: formData.firstName,
+        last_name: formData.lastName,
+        phone: formData.phone || null,
+        attendance: formData.attendance,
+        meal_choice: mealChoice,
+        wants_lodging: formData.wantsLodging,
+        room_id: formData.isFamilyPreBooked ? null : formData.selectedRoomId || null,
+        is_waiting_for_partner: formData.waitingForPartner,
+        message: lodgingText,
+      });
+
+      if (error) {
+        console.error('Error inserting guest:', error);
+        alert("Une erreur est survenue lors de l'enregistrement de votre réponse. Vous pouvez réessayer dans quelques instants.");
+        return;
+      }
+    } catch (err) {
+      console.error('Unexpected error inserting guest:', err);
+      alert("Une erreur est survenue lors de l'enregistrement de votre réponse. Vous pouvez réessayer dans quelques instants.");
+      return;
+    }
+
+    setSubmitted(true);
   };
 
   return (
@@ -261,15 +307,18 @@ ${lodgingText}
                     <p>
                       <strong>💶 Coût :</strong> La nuitée est à la charge des invités. Il n&apos;y a aucune obligation de dormir sur place.
                     </p>
+                    <p>
+                      <strong>💎 Tarif préférentiel :</strong> Nous bénéficions de tarifs avantageux grâce à la réservation de groupe pour la privatisation du domaine.
+                    </p>
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {/* Option OUI */}
                   <div 
-                    onClick={() => setFormData(prev => ({ ...prev, wantsLodging: true }))}
+                    onClick={() => setFormData(prev => ({ ...prev, wantsLodging: true, isFamilyPreBooked: false }))}
                     className={`cursor-pointer p-6 rounded-xl border-2 transition-all duration-300 flex flex-col items-center text-center gap-3
-                      ${formData.wantsLodging 
+                      ${formData.wantsLodging && !formData.isFamilyPreBooked
                         ? 'border-red-500 bg-red-50 ring-1 ring-red-500' 
                         : 'border-gray-200 hover:border-red-200 bg-white'}`}
                   >
@@ -280,9 +329,9 @@ ${lodgingText}
 
                   {/* Option NON */}
                   <div 
-                    onClick={() => setFormData(prev => ({ ...prev, wantsLodging: false }))}
+                    onClick={() => setFormData(prev => ({ ...prev, wantsLodging: false, isFamilyPreBooked: false }))}
                     className={`cursor-pointer p-6 rounded-xl border-2 transition-all duration-300 flex flex-col items-center text-center gap-3
-                      ${!formData.wantsLodging 
+                      ${!formData.wantsLodging && !formData.isFamilyPreBooked
                         ? 'border-gray-600 bg-gray-50 ring-1 ring-gray-600' 
                         : 'border-gray-200 hover:border-gray-300 bg-white'}`}
                   >
@@ -292,11 +341,26 @@ ${lodgingText}
                   </div>
                 </div>
 
+                {/* Option Famille / Pré-réservé */}
+                <div 
+                  onClick={() => setFormData(prev => ({ ...prev, wantsLodging: true, isFamilyPreBooked: true }))}
+                  className={`cursor-pointer p-4 rounded-xl border-2 transition-all duration-300 flex items-center justify-center gap-3
+                    ${formData.isFamilyPreBooked 
+                      ? 'border-amber-500 bg-amber-50 ring-1 ring-amber-500' 
+                      : 'border-gray-100 hover:border-amber-200 bg-white'}`}
+                >
+                  <span className="text-2xl">👨‍👩‍👧‍👦</span>
+                  <div className="text-left">
+                    <h3 className="font-display text-lg text-gray-900">Je suis de la famille</h3>
+                    <p className="text-xs text-gray-500">Une chambre a déjà été réservée pour moi</p>
+                  </div>
+                </div>
+
                 <button
                   onClick={nextStep}
                   className="w-full py-4 bg-red-700 text-white rounded-xl font-medium tracking-wide shadow-lg hover:bg-red-800 transition-all hover:scale-[1.01]"
                 >
-                  {formData.wantsLodging ? 'Choisir ma chambre' : 'Terminer mon inscription'}
+                  {formData.wantsLodging && !formData.isFamilyPreBooked ? 'Choisir ma chambre' : 'Terminer mon inscription'}
                 </button>
               </div>
             )}
@@ -310,7 +374,12 @@ ${lodgingText}
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6">
-                  {ROOMS_DATA.map((room) => {
+                  {loading ? (
+                    <div className="col-span-full flex justify-center py-12">
+                      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600"></div>
+                    </div>
+                  ) : (
+                    rooms.map((room) => {
                     const isSelected = formData.selectedRoomId === room.id;
                     const isFull = room.occupants.length >= room.capacity;
                     // Mock: si occupants > 0 on considère que c'est "réservé" pour l'exemple, sauf si c'est nous
@@ -327,12 +396,12 @@ ${lodgingText}
                         {/* Image */}
                         <div className="relative h-48 w-full bg-gray-200">
                           <Image
-                            src={room.image}
+                            src={room.image_url}
                             alt={room.name}
                             fill
                             className="object-cover"
                           />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                           <div className="absolute bottom-3 left-3 text-white">
                             <h3 className="font-display text-lg tracking-wide">{room.name}</h3>
                           </div>
@@ -346,17 +415,18 @@ ${lodgingText}
                         {/* Content */}
                         <div className="p-4 space-y-3">
                           <div className="flex justify-between items-start">
-                            <p className="text-xs text-gray-500 leading-relaxed line-clamp-2">{room.description}</p>
-                            <div className="text-right">
-                              <span className="text-xs text-gray-400 line-through block">{room.publicPrice}€</span>
-                              <span className="text-red-600 font-bold text-lg">{room.discountPrice}€</span>
+                            <p className="text-xs text-gray-500 leading-relaxed">{room.description}</p>
+                            <div className="text-right shrink-0 ml-2">
+                              <span className="text-xs text-gray-400 line-through block">{room.public_price}€</span>
+                              <span className="text-red-600 font-bold text-lg">{room.discount_price}€</span>
+                              <span className="text-[10px] text-gray-500 block mt-0.5 font-medium">soit {Math.round(room.discount_price / room.capacity)}€/p</span>
                             </div>
                           </div>
 
                           {/* Capacité & Occupants */}
                           <div className="flex items-center justify-between pt-2 border-t border-gray-100">
                              <div className="flex items-center gap-2 text-xs text-gray-600">
-                               <span>👥 Capacité: {room.capacity}</span>
+                               <span>👥 Capacité: {room.occupants.length}/{room.capacity}</span>
                              </div>
                              <div className="text-xs">
                                {room.occupants.length > 0 ? (
@@ -369,7 +439,8 @@ ${lodgingText}
                         </div>
                       </div>
                     );
-                  })}
+                  })
+                )}
                 </div>
 
                 {formData.selectedRoomId && (
