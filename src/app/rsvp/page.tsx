@@ -344,6 +344,28 @@ En attente d'un partenaire : ${formData.waitingForPartner ? 'OUI' : 'NON'}
                   </p>
                 </div>
 
+                {/* Photos brunch & barbecue */}
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-4">
+                  <div className="relative w-full sm:w-1/2 aspect-[4/3] rounded-xl overflow-hidden shadow-sm bg-gray-100">
+                    <Image
+                      src="/brunch.jpeg"
+                      alt="Brunch du lendemain"
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 400px"
+                    />
+                  </div>
+                  <div className="relative w-full sm:w-1/2 aspect-[4/3] rounded-xl overflow-hidden shadow-sm bg-gray-100">
+                    <Image
+                      src="/barbecue.webp"
+                      alt="Barbecue du lendemain"
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 400px"
+                    />
+                  </div>
+                </div>
+
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {/* Brunch details */}
                   <div className="bg-white border border-gray-100 rounded-xl p-4 shadow-sm space-y-2">
