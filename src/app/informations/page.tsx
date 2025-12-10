@@ -64,7 +64,7 @@ export default function InformationsPage() {
             <div className="flex justify-center w-full">
               <div className="relative aspect-4/3 overflow-hidden rounded-sm w-full md:w-3/4 lg:w-2/3">
                 <Image
-                  src="/canide-artprism-47-retouche_3_123516-169097545849643.jpeg"
+                  src="/infos-canide-artprism-47-retouche_3_123516-169097545849643.jpeg"
                   alt="Château de Candie"
                   fill
                   className="object-cover"
