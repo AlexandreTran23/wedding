@@ -107,7 +107,7 @@ export default function HeroSection({ startAnimation = true }: { startAnimation?
       {/* Couple Photos */}
       <div 
         ref={leftPhotoRef}
-        className="absolute left-0 -translate-x-1/2 top-48 md:left-8 md:translate-x-0 md:top-44 lg:left-12 lg:top-1/2 lg:-translate-y-1/2 z-10"
+        className="absolute left-0 -translate-x-[40%] top-48 md:left-8 md:translate-x-0 md:top-44 lg:left-12 lg:top-1/2 lg:-translate-y-1/2 z-10"
       >
         <div className="w-24 h-32 md:w-32 md:h-44 lg:w-64 lg:h-80 p-1.5 md:p-2 lg:p-3 bg-white shadow-xl rotate-[-6deg] hover:scale-105 hover:rotate-[-3deg] transition-all duration-500 cursor-pointer">
           <div className="relative w-full h-full overflow-hidden">
