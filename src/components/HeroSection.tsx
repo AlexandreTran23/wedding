@@ -206,7 +206,7 @@ export default function HeroSection({ startAnimation = true }: { startAnimation?
             href="/rsvp"
             className="inline-block bg-red-600 text-white rounded-md font-light text-xs sm:text-sm md:text-base tracking-[0.12em] uppercase hover:bg-red-700 transition-all duration-300 border border-red-600/20 hover:border-red-700/30 shadow-sm hover:shadow-md px-3 py-1.5 sm:px-4 sm:py-2"
           >
-            Répondre
+            Répondre à l'invitation
           </a>
 
           <button
@@ -214,7 +214,10 @@ export default function HeroSection({ startAnimation = true }: { startAnimation?
             disabled
             className="inline-block bg-gray-100 text-gray-400 rounded-md font-light text-xs sm:text-sm md:text-base tracking-[0.12em] uppercase border border-gray-200 cursor-not-allowed px-3 py-1.5 sm:px-4 sm:py-2"
           >
-            Menu
+            <span className="block">Menu</span>
+            <span className="block text-[0.65em] sm:text-[0.7em] md:text-[0.75em] normal-case tracking-normal font-normal opacity-75">
+              bientôt disponible
+            </span>
           </button>
         </div>
       </div>

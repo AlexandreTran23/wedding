@@ -174,6 +174,9 @@ export default function InformationsPage() {
             <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-5xl text-gray-900 text-center mb-4 sm:mb-5 md:mb-6 font-light tracking-wide">
               Programme de la Journée
             </h2>
+            <p className="text-center text-gray-600 text-sm sm:text-base mb-4 sm:mb-5 max-w-2xl mx-auto italic">
+              Le programme est voué à subir des modifications jusqu&apos;à la date du mariage. Ces informations sont indicatives pour le moment.
+            </p>
             <p className="flex items-center justify-center gap-2 text-sm sm:text-base mb-6 sm:mb-8 md:mb-10 px-4 py-2 rounded-full bg-red-50 text-red-700 font-medium mx-auto text-center w-fit">
               <span>🤵‍♂️</span>
               <span className="text-center">
@@ -187,12 +190,11 @@ export default function InformationsPage() {
               
               <div className="space-y-6">
                 {[
-                  { time: '14h30', event: 'Accueil des invités', location: 'Château de Candie', icon: '👋' },
-                  { time: '15h00', event: 'Cérémonie', location: 'Château de Candie', icon: '💍' },
-                  { time: '16h00', event: 'Séance photo', location: 'Jardins du Château', icon: '📸' },
-                  { time: '18h00', event: "Vin d'honneur", location: 'Château de Candie', icon: '🥂' },
-                  { time: '20h00', event: 'Dîner', location: 'Château de Candie', icon: '🍽️' },
-                  { time: '23h00', event: 'Ouverture du bal', location: 'Château de Candie', icon: '💃' },
+                  { time: '15h', event: 'Accueil des invités', location: 'Château de Candie', icon: '👋' },
+                  { time: '16h', event: 'Début de la cérémonie', location: 'Château de Candie', icon: '💍' },
+                  { time: '17h30', event: "Vin d'honneur", location: 'Château de Candie', icon: '🥂' },
+                  { time: '19h30', event: 'Dîner', location: 'Château de Candie', icon: '🍽️' },
+                  { time: '22h30', event: 'Ouverture du bal', location: 'Château de Candie', icon: '💃' },
                 ].map((item, index) => (
                   <AnimatedSection key={index} className="w-full">
                     <div className="relative flex flex-col items-center">

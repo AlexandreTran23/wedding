@@ -486,7 +486,7 @@ En attente d'un partenaire : ${formData.waitingForPartner ? 'OUI' : 'NON'}
                       <strong>💶 Coût :</strong> La nuitée est à la charge des invités. Il n&apos;y a aucune obligation de dormir sur place.
                     </p>
                     <p>
-                      <strong>💎 Tarif préférentiel :</strong> Nous bénéficions de tarifs avantageux grâce à la réservation de groupe pour la privatisation du domaine.
+                      <strong>💎 Tarif préférentiel :</strong> Une remise de 20% est appliquée sur toutes les chambres réservées dans le cadre de notre mariage, grâce à la réservation de groupe.
                     </p>
                     <p>
                       <strong>🧸 Enfants :</strong> Des lits bébé peuvent être ajoutés dans certaines chambres sur demande (dans la limite des disponibilités).
