@@ -190,11 +190,11 @@ export default function InformationsPage() {
               
               <div className="space-y-6">
                 {[
-                  { time: '15h', event: 'Accueil des invités', location: 'Château de Candie', icon: '👋' },
+                  { time: '15h30', event: 'Accueil des invités', location: 'Château de Candie', icon: '👋' },
                   { time: '16h', event: 'Début de la cérémonie', location: 'Château de Candie', icon: '💍' },
-                  { time: '17h30', event: "Vin d'honneur", location: 'Château de Candie', icon: '🥂' },
+                  { time: '17h', event: "Vin d'honneur", location: 'Château de Candie', icon: '🥂' },
                   { time: '19h30', event: 'Dîner', location: 'Château de Candie', icon: '🍽️' },
-                  { time: '22h30', event: 'Ouverture du bal', location: 'Château de Candie', icon: '💃' },
+                  { time: '22h', event: 'Ouverture du bal', location: 'Château de Candie', icon: '💃' },
                 ].map((item, index) => (
                   <AnimatedSection key={index} className="w-full">
                     <div className="relative flex flex-col items-center">

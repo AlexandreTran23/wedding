@@ -239,9 +239,20 @@ En attente d'un partenaire : ${formData.waitingForPartner ? 'OUI' : 'NON'}
         
         {submitted ? (
           <div className="text-center space-y-6 p-8 bg-white rounded-xl border border-red-100 shadow-xl">
-            <div className="text-5xl mb-4">✨</div>
-            <h2 className="font-display text-3xl text-red-600">Merci pour votre réponse !</h2>
-            <p className="text-gray-600">Nous avons hâte de célébrer avec vous.</p>
+            {formData.attendance === 'yes' ? (
+              <>
+                <div className="text-5xl mb-4">✨</div>
+                <h2 className="font-display text-3xl text-red-600">Merci pour votre réponse !</h2>
+                <p className="text-gray-600">Nous avons hâte de célébrer avec vous.</p>
+              </>
+            ) : (
+              <>
+                <div className="text-5xl mb-4">💝</div>
+                <h2 className="font-display text-3xl text-red-600">Merci pour votre réponse</h2>
+                <p className="text-gray-600">Nous sommes désolés de ne pas pouvoir vous compter parmi nous ce jour-là.</p>
+                <p className="text-gray-600">Nous penserons à vous et vous tiendrons au courant des moments forts de cette journée.</p>
+              </>
+            )}
             <button
               type="button"
               onClick={() => router.push('/')}
@@ -404,6 +415,20 @@ En attente d'un partenaire : ${formData.waitingForPartner ? 'OUI' : 'NON'}
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {/* Les deux conviennent */}
+                  <div
+                    onClick={() => setFormData(prev => ({ ...prev, nextDayMeal: 'both' }))}
+                    className={`cursor-pointer p-4 rounded-xl border-2 transition-all duration-300 text-center space-y-2
+                      ${formData.nextDayMeal === 'both'
+                        ? 'border-red-500 bg-red-50 ring-1 ring-red-500'
+                        : 'border-gray-200 hover:border-red-200 bg-white'}`}
+                  >
+                    <span className="text-xl">😊</span>
+                    <p className="text-sm font-medium text-gray-900">
+                      Les deux options me conviennent
+                    </p>
+                  </div>
+
                   {/* Choix BBQ seulement */}
                   <div
                     onClick={() => setFormData(prev => ({ ...prev, nextDayMeal: 'bbq_only' }))}
@@ -429,20 +454,6 @@ En attente d'un partenaire : ${formData.waitingForPartner ? 'OUI' : 'NON'}
                     <span className="text-xl">🥐</span>
                     <p className="text-sm font-medium text-gray-900">
                       Je souhaite venir seulement si c&apos;est un brunch
-                    </p>
-                  </div>
-
-                  {/* Les deux conviennent */}
-                  <div
-                    onClick={() => setFormData(prev => ({ ...prev, nextDayMeal: 'both' }))}
-                    className={`cursor-pointer p-4 rounded-xl border-2 transition-all duration-300 text-center space-y-2
-                      ${formData.nextDayMeal === 'both'
-                        ? 'border-red-500 bg-red-50 ring-1 ring-red-500'
-                        : 'border-gray-200 hover:border-red-200 bg-white'}`}
-                  >
-                    <span className="text-xl">😊</span>
-                    <p className="text-sm font-medium text-gray-900">
-                      Les deux options me conviennent
                     </p>
                   </div>
 
@@ -477,7 +488,7 @@ En attente d'un partenaire : ${formData.waitingForPartner ? 'OUI' : 'NON'}
                   <h2 className="font-display text-3xl sm:text-4xl text-gray-900 mb-4">Le Logement au Château</h2>
                   <div className="bg-amber-50 border border-amber-100 p-6 rounded-xl text-left text-sm text-amber-900 leading-relaxed max-w-2xl mx-auto space-y-3">
                     <p>
-                      <strong>🏰 Privatisation :</strong> L&apos;idéal serait de pouvoir remplir les 45 chambres pour privatiser le château dans son ensemble. Cela permettrait de n&apos;avoir aucune personne extérieure au mariage, pour une ambiance plus conviviale et &quot;entre nous&quot;.
+                      <strong>🏰 Privatisation :</strong> L&apos;idéal serait de pouvoir remplir les 16 chambres pour privatiser le château dans son ensemble. Cela permettrait de n&apos;avoir aucune personne extérieure au mariage, pour une ambiance plus conviviale et &quot;entre nous&quot;.
                     </p>
                     <p>
                       <strong>⚠️ Places limitées :</strong> Les chambres sont en nombre limité et seront attribuées au fur et à mesure des inscriptions. Si possible, merci de vous inscrire rapidement pour nous aider à sécuriser toutes les chambres.
