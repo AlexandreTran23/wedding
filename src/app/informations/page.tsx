@@ -175,7 +175,7 @@ export default function InformationsPage() {
               Programme de la Journée
             </h2>
             <p className="text-center text-gray-600 text-sm sm:text-base mb-4 sm:mb-5 max-w-2xl mx-auto italic">
-              Le programme est voué à subir des modifications jusqu&apos;à la date du mariage. Ces informations sont indicatives pour le moment.
+              Le programme est voué à subir des modifications jusqu&apos;à la date du mariage.
             </p>
             <p className="flex items-center justify-center gap-2 text-sm sm:text-base mb-6 sm:mb-8 md:mb-10 px-4 py-2 rounded-full bg-red-50 text-red-700 font-medium mx-auto text-center w-fit">
               <span>🤵‍♂️</span>

@@ -111,12 +111,16 @@ export default function RSVPPage() {
   const nextStep = () => {
     // Validation simple
     if (step === 1) {
-      if (!formData.firstName || !formData.lastName || !formData.attendance || !formData.meal) {
+      if (!formData.firstName || !formData.lastName || !formData.attendance) {
         alert("Merci de remplir les champs obligatoires");
         return;
       }
       if (formData.attendance === 'no') {
         handleSubmit(); // Si ne vient pas, on soumet direct
+        return;
+      }
+      if (!formData.meal) {
+        alert("Merci de remplir les champs obligatoires");
         return;
       }
     } else if (step === 2) {
