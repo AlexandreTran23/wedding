@@ -518,7 +518,7 @@ En attente d'un partenaire : ${formData.waitingForPartner ? 'OUI' : 'NON'}
                   >
                     <span className="text-4xl">🛌</span>
                     <h3 className="font-display text-xl text-gray-900 font-semibold">Je dors au château</h3>
-                    <p className="text-sm text-gray-500 font-medium">Je participe à la privatisation et je règle ma chambre.</p>
+                    <p className="text-sm text-gray-500 font-medium">Je souhaite sélectionner ma chambre.</p>
                   </div>
 
                   {/* Option NON */}

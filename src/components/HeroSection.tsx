@@ -197,6 +197,13 @@ export default function HeroSection({ startAnimation = true }: { startAnimation?
           </p>
         </div>
         
+        {/* Délai de réponse */}
+        <div className="text-center pt-2 sm:pt-3">
+          <p className="text-gray-600 text-sm sm:text-base font-normal italic">
+            Merci de répondre avant le 15 juin
+          </p>
+        </div>
+        
         {/* Buttons */}
         <div 
           ref={buttonsRef} 
