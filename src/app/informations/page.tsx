@@ -34,12 +34,12 @@ export default function InformationsPage() {
         <div className="w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-12 py-4 flex items-center justify-between">
           <button
             onClick={() => router.push('/')}
-            className="text-red-600 hover:text-red-700 transition-colors font-light text-sm sm:text-base tracking-wide flex items-center gap-2"
+            className="text-red-600 hover:text-red-700 transition-colors font-normal text-sm sm:text-base tracking-wide flex items-center gap-2"
           >
             <span>←</span>
             <span>Retour</span>
           </button>
-          <h1 className="font-display text-lg sm:text-xl text-red-600 font-light tracking-wide">Informations</h1>
+          <h1 className="font-display text-lg sm:text-xl text-red-600 font-medium tracking-wide">Informations</h1>
           <div className="w-20"></div>
         </div>
       </div>
@@ -132,17 +132,17 @@ export default function InformationsPage() {
       <AnimatedSection className="w-full py-6 sm:py-8 md:py-8 bg-white">
         <div className="w-full mx-auto px-3 sm:px-4 md:px-6 lg:px-8 text-center">
           <div className="text-4xl sm:text-5xl mb-2">📍</div>
-          <h3 className="font-display text-2xl sm:text-3xl md:text-4xl text-red-600 font-light tracking-wide mb-4">
+          <h3 className="font-display text-2xl sm:text-3xl md:text-4xl text-red-600 font-medium tracking-wide mb-4">
             Adresse
           </h3>
           <div className="space-y-2 sm:space-y-3">
-            <p className="text-gray-800 text-lg sm:text-xl md:text-2xl font-light tracking-wide">
+            <p className="text-gray-800 text-lg sm:text-xl md:text-2xl font-medium tracking-wide">
               Château de Candie
             </p>
-            <p className="text-gray-600 text-base sm:text-lg font-light tracking-wide">
+            <p className="text-gray-600 text-base sm:text-lg font-normal tracking-wide">
               533 Rue du Bois de Candie
             </p>
-            <p className="text-gray-600 text-base sm:text-lg font-light tracking-wide">
+            <p className="text-gray-600 text-base sm:text-lg font-normal tracking-wide">
               73000 Chambéry, France
             </p>
           </div>
@@ -151,7 +151,7 @@ export default function InformationsPage() {
               href="https://www.google.com/maps/search/?api=1&query=Château+de+Candie,+533+Rue+du+Bois+de+Candie,+73000+Chambéry,+France"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block px-5 sm:px-6 py-2 sm:py-2.5 text-red-600 border border-red-600/40 rounded-sm font-light text-xs sm:text-sm tracking-wide uppercase hover:bg-red-50 hover:border-red-600 transition-all"
+              className="inline-block px-5 sm:px-6 py-2 sm:py-2.5 text-red-600 border border-red-600/40 rounded-sm font-medium text-xs sm:text-sm tracking-wide uppercase hover:bg-red-50 hover:border-red-600 transition-all"
             >
               Voir sur la carte
             </a>
@@ -159,7 +159,7 @@ export default function InformationsPage() {
               href="https://chateaudecandie.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block px-5 sm:px-6 py-2 sm:py-2.5 text-white bg-red-600 border border-red-600 rounded-sm font-light text-xs sm:text-sm tracking-wide uppercase hover:bg-red-700 hover:border-red-700 transition-all shadow-sm"
+              className="inline-block px-5 sm:px-6 py-2 sm:py-2.5 text-white bg-red-600 border border-red-600 rounded-sm font-medium text-xs sm:text-sm tracking-wide uppercase hover:bg-red-700 hover:border-red-700 transition-all shadow-sm"
             >
               Plus d&apos;informations sur le lieu
             </a>
@@ -171,7 +171,7 @@ export default function InformationsPage() {
       <AnimatedSection className="w-full py-6 sm:py-8 md:py-8 bg-white">
         <div className="w-full mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
           <div className="w-full mx-auto">
-            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-5xl text-gray-900 text-center mb-4 sm:mb-5 md:mb-6 font-light tracking-wide">
+            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-5xl text-gray-900 text-center mb-4 sm:mb-5 md:mb-6 font-medium tracking-wide">
               Programme de la Journée
             </h2>
             <p className="text-center text-gray-600 text-sm sm:text-base mb-4 sm:mb-5 max-w-2xl mx-auto italic">
@@ -211,7 +211,7 @@ export default function InformationsPage() {
                         <h4 className="font-display text-xl md:text-2xl lg:text-3xl text-gray-900 mb-2">
                             {item.event}
                         </h4>
-                        <p className="text-gray-500 font-light italic text-base md:text-lg">
+                        <p className="text-gray-500 font-normal italic text-base md:text-lg">
                             {item.location}
                         </p>
                       </div>
@@ -227,10 +227,10 @@ export default function InformationsPage() {
       {/* Footer */}
       <footer className="w-full py-6 sm:py-8 md:py-8 bg-white border-t border-red-500/20 text-center">
         <div className="w-full mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
-          <p className="font-display text-lg sm:text-xl text-red-600 mb-2 font-light tracking-wide">
+          <p className="font-display text-lg sm:text-xl text-red-600 mb-2 font-medium tracking-wide">
             Avec tout notre amour
           </p>
-          <p className="text-gray-600 text-base sm:text-lg font-light tracking-wide">
+          <p className="text-gray-600 text-base sm:text-lg font-normal tracking-wide">
             Alexandre & Samantha
           </p>
           <div className="mt-1 mb-4">

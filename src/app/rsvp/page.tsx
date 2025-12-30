@@ -215,13 +215,13 @@ En attente d'un partenaire : ${formData.waitingForPartner ? 'OUI' : 'NON'}
         <div className="w-full mx-auto px-4 py-4 flex items-center justify-between">
           <button
             onClick={() => step > 1 ? prevStep() : router.push('/')}
-            className="text-red-600 hover:text-red-700 transition-colors font-light text-sm tracking-wide flex items-center gap-2"
+            className="text-red-600 hover:text-red-700 transition-colors font-normal text-sm tracking-wide flex items-center gap-2"
           >
             <span>←</span>
             <span>{step > 1 ? 'Précédent' : 'Retour'}</span>
           </button>
           <div className="flex flex-col items-center">
-            <h1 className="font-display text-lg text-red-600 font-light tracking-wide">RSVP</h1>
+            <h1 className="font-display text-lg text-red-600 font-medium tracking-wide">RSVP</h1>
             <div className="flex gap-1 mt-1">
               <div className={`h-1 w-6 rounded-full transition-colors ${step >= 1 ? 'bg-red-500' : 'bg-red-100'}`} />
               <div className={`h-1 w-6 rounded-full transition-colors ${step >= 2 ? 'bg-red-500' : 'bg-red-100'}`} />
@@ -268,7 +268,6 @@ En attente d'un partenaire : ${formData.waitingForPartner ? 'OUI' : 'NON'}
               <div className="space-y-6">
                 <div className="text-center mb-8">
                   <h2 className="font-display text-3xl sm:text-4xl text-gray-900 mb-2">Confirmez votre présence</h2>
-                  <p className="text-gray-500 font-light">Commençons par les présentations</p>
                 </div>
 
                 <div className="bg-white rounded-xl border border-red-100 p-6 shadow-sm space-y-5">
@@ -334,8 +333,8 @@ En attente d'un partenaire : ${formData.waitingForPartner ? 'OUI' : 'NON'}
                           className="w-full px-3 py-2.5 border border-gray-200 rounded-lg bg-white focus:border-red-400 focus:ring-1 focus:ring-red-400 outline-none"
                         >
                           <option value="">Votre choix...</option>
-                          <option value="viande">Viande</option>
-                          <option value="poisson">Poisson</option>
+                          <option value="viande">Menu tradition avec viande</option>
+                          <option value="poisson">Alternative pesco-végétarien (uniquement en cas de restriction alimentaire)</option>
                         </select>
                       </div>
                     )}
@@ -355,10 +354,9 @@ En attente d'un partenaire : ${formData.waitingForPartner ? 'OUI' : 'NON'}
             {step === 2 && (
               <div className="space-y-6">
                 <div className="text-center mb-8">
-                  <h2 className="font-display text-3xl sm:text-4xl text-gray-900 mb-4">Le repas du lendemain</h2>
-                  <p className="text-gray-500 text-sm sm:text-base max-w-2xl mx-auto">
-                    Le château nous propose un brunch ou un barbecue le lendemain, pour prolonger les retrouvailles dans une ambiance conviviale.
-                    Les deux formules sont sous réserve d&apos;un minimum de 25 personnes et sont à la charge des invités.
+                  <h2 className="font-display text-3xl sm:text-4xl text-gray-900 mb-4 font-semibold">Sondage : Le repas du lendemain</h2>
+                  <p className="text-gray-700 text-sm sm:text-base max-w-2xl mx-auto">
+                    Le château nous propose un brunch ou un barbecue le lendemain. <strong>Une seule des deux options sera finalement proposée.</strong> Merci de voter pour votre préférence. La formule choisie est sous réserve d&apos;un minimum de 25 personnes et est à la charge des invités.
                   </p>
                 </div>
 
@@ -424,7 +422,7 @@ En attente d'un partenaire : ${formData.waitingForPartner ? 'OUI' : 'NON'}
                         : 'border-gray-200 hover:border-red-200 bg-white'}`}
                   >
                     <span className="text-xl">😊</span>
-                    <p className="text-sm font-medium text-gray-900">
+                    <p className="text-sm font-semibold text-gray-900">
                       Les deux options me conviennent
                     </p>
                   </div>
@@ -438,8 +436,8 @@ En attente d'un partenaire : ${formData.waitingForPartner ? 'OUI' : 'NON'}
                         : 'border-gray-200 hover:border-red-200 bg-white'}`}
                   >
                     <span className="text-xl">🔥</span>
-                    <p className="text-sm font-medium text-gray-900">
-                      Je souhaite venir seulement si c&apos;est un barbecue
+                    <p className="text-sm font-semibold text-gray-900">
+                      Je préfère le barbecue
                     </p>
                   </div>
 
@@ -452,8 +450,8 @@ En attente d'un partenaire : ${formData.waitingForPartner ? 'OUI' : 'NON'}
                         : 'border-gray-200 hover:border-red-200 bg-white'}`}
                   >
                     <span className="text-xl">🥐</span>
-                    <p className="text-sm font-medium text-gray-900">
-                      Je souhaite venir seulement si c&apos;est un brunch
+                    <p className="text-sm font-semibold text-gray-900">
+                      Je préfère le brunch
                     </p>
                   </div>
 
@@ -466,7 +464,7 @@ En attente d'un partenaire : ${formData.waitingForPartner ? 'OUI' : 'NON'}
                         : 'border-gray-200 hover:border-gray-300 bg-white'}`}
                   >
                     <span className="text-xl">💤</span>
-                    <p className="text-sm font-medium text-gray-900">
+                    <p className="text-sm font-semibold text-gray-900">
                       Je ne pourrai malheureusement pas venir au repas du lendemain
                     </p>
                   </div>
@@ -488,22 +486,19 @@ En attente d'un partenaire : ${formData.waitingForPartner ? 'OUI' : 'NON'}
                   <h2 className="font-display text-3xl sm:text-4xl text-gray-900 mb-4">Le Logement au Château</h2>
                   <div className="bg-amber-50 border border-amber-100 p-6 rounded-xl text-left text-sm text-amber-900 leading-relaxed max-w-2xl mx-auto space-y-3">
                     <p>
-                      <strong>🏰 Privatisation :</strong> L&apos;idéal serait de pouvoir remplir les 16 chambres pour privatiser le château dans son ensemble. Cela permettrait de n&apos;avoir aucune personne extérieure au mariage, pour une ambiance plus conviviale et &quot;entre nous&quot;.
+                      <strong>⚠️ Places limitées :</strong> Les chambres sont en nombre limité.
                     </p>
                     <p>
-                      <strong>⚠️ Places limitées :</strong> Les chambres sont en nombre limité et seront attribuées au fur et à mesure des inscriptions. Si possible, merci de vous inscrire rapidement pour nous aider à sécuriser toutes les chambres.
+                      <strong>💶 Coût :</strong> La nuitée est à la charge des invités. Aucune obligation de dormir sur place.
                     </p>
                     <p>
-                      <strong>💶 Coût :</strong> La nuitée est à la charge des invités. Il n&apos;y a aucune obligation de dormir sur place.
+                      <strong>💎 Tarif préférentiel :</strong> Remise de 20% appliquée sur toutes les chambres réservées.
                     </p>
                     <p>
-                      <strong>💎 Tarif préférentiel :</strong> Une remise de 20% est appliquée sur toutes les chambres réservées dans le cadre de notre mariage, grâce à la réservation de groupe.
+                      <strong>🧸 Enfants :</strong> Lits bébé disponibles sur demande (dans la limite des disponibilités).
                     </p>
                     <p>
-                      <strong>🧸 Enfants :</strong> Des lits bébé peuvent être ajoutés dans certaines chambres sur demande (dans la limite des disponibilités).
-                    </p>
-                    <p>
-                      <strong>🐾 Animaux :</strong> Les animaux sont acceptés dans certaines chambres, avec un supplément de 15€ par animal et par nuit.
+                      <strong>🐾 Animaux :</strong> Acceptés dans certaines chambres, supplément de 15€ par animal et par nuit.
                     </p>
                   </div>
                 </div>
@@ -518,8 +513,8 @@ En attente d'un partenaire : ${formData.waitingForPartner ? 'OUI' : 'NON'}
                         : 'border-gray-200 hover:border-red-200 bg-white'}`}
                   >
                     <span className="text-4xl">🛌</span>
-                    <h3 className="font-display text-xl text-gray-900">Je dors au château</h3>
-                    <p className="text-sm text-gray-500">Je participe à la privatisation et je règle ma chambre.</p>
+                    <h3 className="font-display text-xl text-gray-900 font-semibold">Je dors au château</h3>
+                    <p className="text-sm text-gray-500 font-medium">Je participe à la privatisation et je règle ma chambre.</p>
                   </div>
 
                   {/* Option NON */}
@@ -531,23 +526,22 @@ En attente d'un partenaire : ${formData.waitingForPartner ? 'OUI' : 'NON'}
                         : 'border-gray-200 hover:border-gray-300 bg-white'}`}
                   >
                     <span className="text-4xl">🌙</span>
-                    <h3 className="font-display text-xl text-gray-900">Je dors ailleurs</h3>
-                    <p className="text-sm text-gray-500">Je ne souhaite pas réserver de chambre au château.</p>
+                    <h3 className="font-display text-xl text-gray-900 font-semibold">Je dors ailleurs</h3>
+                    <p className="text-sm text-gray-500 font-medium">Je ne souhaite pas réserver de chambre au château.</p>
                   </div>
                 </div>
 
                 {/* Option Famille / Pré-réservé */}
                 <div 
                   onClick={() => setFormData(prev => ({ ...prev, wantsLodging: true, isFamilyPreBooked: true }))}
-                  className={`cursor-pointer p-4 rounded-xl border-2 transition-all duration-300 flex items-center justify-center gap-3
+                  className={`cursor-pointer p-6 rounded-xl border-2 transition-all duration-300 flex flex-col items-center text-center gap-3
                     ${formData.isFamilyPreBooked 
                       ? 'border-amber-500 bg-amber-50 ring-1 ring-amber-500' 
-                      : 'border-gray-100 hover:border-amber-200 bg-white'}`}
+                      : 'border-gray-200 hover:border-amber-200 bg-white'}`}
                 >
-                  <span className="text-2xl">👨‍👩‍👧‍👦</span>
-                  <p className="text-xs sm:text-sm text-gray-600 text-left">
-                    Une chambre a déjà été réservée pour moi par les mariés
-                  </p>
+                  <span className="text-4xl">👨‍👩‍👧‍👦</span>
+                  <h3 className="font-display text-xl text-gray-900 font-semibold">Chambre déjà réservée</h3>
+                  <p className="text-sm text-gray-500 font-medium">Une chambre a déjà été réservée pour moi par les mariés</p>
                 </div>
 
                 <button

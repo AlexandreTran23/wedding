@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -18,6 +18,7 @@ export default function HeroSection({ startAnimation = true }: { startAnimation?
   const buttonsRef = useRef<HTMLDivElement>(null);
   const leftPhotoRef = useRef<HTMLDivElement>(null);
   const rightPhotoRef = useRef<HTMLDivElement>(null);
+  const [zoomedImage, setZoomedImage] = useState<string | null>(null);
 
   useEffect(() => {
     if (!startAnimation) return;
@@ -109,7 +110,10 @@ export default function HeroSection({ startAnimation = true }: { startAnimation?
         ref={leftPhotoRef}
         className="absolute left-0 -translate-x-[40%] top-48 md:left-8 md:translate-x-0 md:top-44 lg:left-12 lg:top-1/2 lg:-translate-y-1/2 z-10"
       >
-        <div className="w-24 h-32 md:w-32 md:h-44 lg:w-64 lg:h-80 p-1.5 md:p-2 lg:p-3 bg-white shadow-xl rotate-[-6deg] hover:scale-105 hover:rotate-[-3deg] transition-all duration-500 cursor-pointer">
+        <div 
+          onClick={() => setZoomedImage('/alex_et_sam_1.jpg')}
+          className="w-24 h-32 md:w-32 md:h-44 lg:w-64 lg:h-80 p-1.5 md:p-2 lg:p-3 bg-white shadow-xl -rotate-6 hover:scale-105 hover:-rotate-3 transition-all duration-500 cursor-pointer"
+        >
           <div className="relative w-full h-full overflow-hidden">
             <Image
               src="/alex_et_sam_1.jpg"
@@ -126,7 +130,10 @@ export default function HeroSection({ startAnimation = true }: { startAnimation?
         ref={rightPhotoRef}
         className="absolute right-0 translate-x-1/2 bottom-32 md:right-8 md:translate-x-0 md:bottom-40 lg:right-12 lg:top-1/2 lg:-translate-y-1/2 z-10"
       >
-        <div className="w-24 h-32 md:w-32 md:h-44 lg:w-64 lg:h-80 p-1.5 md:p-2 lg:p-3 bg-white shadow-xl rotate-[6deg] hover:scale-105 hover:rotate-[3deg] transition-all duration-500 cursor-pointer">
+        <div 
+          onClick={() => setZoomedImage('/alex_et_sam_2.jpeg')}
+          className="w-24 h-32 md:w-32 md:h-44 lg:w-64 lg:h-80 p-1.5 md:p-2 lg:p-3 bg-white shadow-xl rotate-6 hover:scale-105 hover:rotate-3 transition-all duration-500 cursor-pointer"
+        >
           <div className="relative w-full h-full overflow-hidden">
             <Image
               src="/alex_et_sam_2.jpeg"
@@ -152,7 +159,7 @@ export default function HeroSection({ startAnimation = true }: { startAnimation?
             我们结婚了
           </p>
           <div className="flex flex-col items-center gap-1">
-            <p className="text-red-600 font-display text-xs sm:text-sm md:text-base tracking-[0.3em] uppercase font-light">
+            <p className="text-red-600 font-display text-xs sm:text-sm md:text-base tracking-[0.3em] uppercase font-medium">
               Nous nous marions
             </p>
             <span className="text-red-500 text-base sm:text-lg md:text-xl">♥</span>
@@ -164,9 +171,9 @@ export default function HeroSection({ startAnimation = true }: { startAnimation?
           className="text-6xl sm:text-6xl md:text-7xl lg:text-8xl text-gray-900 leading-[1.05] tracking-wide"
           style={{ fontFamily: 'var(--font-handwriting)' }}
         >
-          <span className="block font-normal mb-1 sm:mb-2">Samantha</span>
-          <span className="block text-red-600 text-4xl sm:text-5xl md:text-6xl lg:text-7xl my-3 sm:my-4 md:my-5 font-normal">&</span>
-          <span className="block font-normal mt-1 sm:mt-2">Alexandre</span>
+          <span className="block font-medium mb-1 sm:mb-2">Samantha</span>
+          <span className="block text-red-600 text-4xl sm:text-5xl md:text-6xl lg:text-7xl my-3 sm:my-4 md:my-5 font-medium">&</span>
+          <span className="block font-medium mt-1 sm:mt-2">Alexandre</span>
         </h1>
         
         <div ref={subtitleRef} className="pt-1 sm:pt-2">
@@ -178,13 +185,13 @@ export default function HeroSection({ startAnimation = true }: { startAnimation?
         </div>
         
         <div ref={dateRef} className="space-y-1.5 sm:space-y-2 pt-1 sm:pt-2">
-          <p className="text-red-600 font-display text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light tracking-wide">
+          <p className="text-red-600 font-display text-xl sm:text-2xl md:text-3xl lg:text-4xl font-medium tracking-wide">
             Samedi, le 22 Août 2026
           </p>
-          <p className="text-gray-700 text-base sm:text-lg md:text-xl font-light tracking-wide">
+          <p className="text-gray-700 text-base sm:text-lg md:text-xl font-normal tracking-wide">
             Château de Candie
           </p>
-          <p className="text-gray-500 text-sm sm:text-base md:text-lg font-light tracking-wide">
+          <p className="text-gray-500 text-sm sm:text-base md:text-lg font-normal tracking-wide">
             533 Rue du Bois de Candie<br className="sm:hidden" />
             <span className="hidden sm:inline">, </span>73000 Chambéry, France
           </p>
@@ -197,14 +204,14 @@ export default function HeroSection({ startAnimation = true }: { startAnimation?
         >
           <a
             href="/informations"
-            className="inline-block bg-transparent text-red-600 rounded-md font-light text-xs sm:text-sm md:text-base tracking-[0.12em] uppercase hover:bg-red-50/50 transition-all duration-300 border-2 border-red-600/40 hover:border-red-600/60 shadow-sm hover:shadow-md px-3 py-1.5 sm:px-4 sm:py-2"
+            className="inline-block bg-transparent text-red-600 rounded-md font-medium text-xs sm:text-sm md:text-base tracking-[0.12em] uppercase hover:bg-red-50/50 transition-all duration-300 border-2 border-red-600/40 hover:border-red-600/60 shadow-sm hover:shadow-md px-3 py-1.5 sm:px-4 sm:py-2"
           >
             Informations
           </a>
           
           <a
             href="/rsvp"
-            className="inline-block bg-red-600 text-white rounded-md font-light text-xs sm:text-sm md:text-base tracking-[0.12em] uppercase hover:bg-red-700 transition-all duration-300 border border-red-600/20 hover:border-red-700/30 shadow-sm hover:shadow-md px-3 py-1.5 sm:px-4 sm:py-2"
+            className="inline-block bg-red-600 text-white rounded-md font-medium text-xs sm:text-sm md:text-base tracking-[0.12em] uppercase hover:bg-red-700 transition-all duration-300 border border-red-600/20 hover:border-red-700/30 shadow-sm hover:shadow-md px-3 py-1.5 sm:px-4 sm:py-2"
           >
             Répondre à l'invitation
           </a>
@@ -212,7 +219,7 @@ export default function HeroSection({ startAnimation = true }: { startAnimation?
           <button
             type="button"
             disabled
-            className="inline-block bg-gray-100 text-gray-400 rounded-md font-light text-xs sm:text-sm md:text-base tracking-[0.12em] uppercase border border-gray-200 cursor-not-allowed px-3 py-1.5 sm:px-4 sm:py-2"
+            className="inline-block bg-gray-100 text-gray-400 rounded-md font-medium text-xs sm:text-sm md:text-base tracking-[0.12em] uppercase border border-gray-200 cursor-not-allowed px-3 py-1.5 sm:px-4 sm:py-2"
           >
             <span className="block">Menu</span>
             <span className="block text-[0.65em] sm:text-[0.7em] md:text-[0.75em] normal-case tracking-normal font-normal opacity-75">
@@ -221,6 +228,35 @@ export default function HeroSection({ startAnimation = true }: { startAnimation?
           </button>
         </div>
       </div>
+
+      {/* Modal de zoom */}
+      {zoomedImage && (
+        <div
+          className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4 animate-in fade-in duration-300"
+          onClick={() => setZoomedImage(null)}
+        >
+          <button
+            onClick={() => setZoomedImage(null)}
+            className="absolute top-4 right-4 text-white hover:text-gray-300 transition-colors z-10 text-3xl font-light"
+            aria-label="Fermer"
+          >
+            ×
+          </button>
+          <div 
+            className="relative max-w-7xl max-h-[90vh] w-full h-full"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <Image
+              src={zoomedImage}
+              alt="Alexandre et Samantha"
+              fill
+              className="object-contain"
+              sizes="100vw"
+              priority
+            />
+          </div>
+        </div>
+      )}
     </section>
   );
 }
