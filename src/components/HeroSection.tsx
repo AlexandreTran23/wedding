@@ -280,16 +280,16 @@ export default function HeroSection({ startAnimation = true }: { startAnimation?
         >
           <button
             onClick={() => setShowKitty(false)}
-            className="absolute top-4 right-4 text-white hover:text-gray-300 transition-colors z-10 text-3xl font-light"
+            className="absolute top-4 right-4 text-white hover:text-gray-300 transition-colors z-50 text-3xl font-light bg-black/50 rounded-full w-10 h-10 flex items-center justify-center"
             aria-label="Fermer"
           >
             ×
           </button>
           <div 
-            className="relative max-w-7xl max-h-[90vh] w-full h-full flex flex-col items-center justify-center"
+            className="relative max-w-7xl max-h-[90vh] w-full h-full flex flex-col items-center justify-center pt-12 sm:pt-4"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="text-center mb-4 z-10">
+            <div className="text-center mb-4 z-10 px-4">
               <p className="text-white text-lg sm:text-xl md:text-2xl font-medium mb-2">
                 🐱 Tu as trouvé notre chat ! 🐱
               </p>

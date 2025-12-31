@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import AnimatedSection from '@/components/AnimatedSection';
@@ -20,6 +20,7 @@ const INFO_IMAGES = [
 export default function InformationsPage() {
   const router = useRouter();
   const carouselRef = useRef<HTMLDivElement | null>(null);
+  const [showDevoreur, setShowDevoreur] = useState(false);
 
   const scrollCarousel = (direction: 'left' | 'right') => {
     if (!carouselRef.current) return;
@@ -199,7 +200,12 @@ export default function InformationsPage() {
                   <AnimatedSection key={index} className="w-full">
                     <div className="relative flex flex-col items-center">
                       {/* Icon Bubble */}
-                      <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-white border-2 border-red-50 shadow-sm flex items-center justify-center text-xl md:text-2xl z-10 mb-4 transition-transform hover:scale-110 duration-300 relative">
+                      <div 
+                        className={`w-12 h-12 md:w-14 md:h-14 rounded-full bg-white border-2 border-red-50 shadow-sm flex items-center justify-center text-xl md:text-2xl z-10 mb-4 transition-transform hover:scale-110 duration-300 relative ${
+                          item.icon === '🍽️' ? 'cursor-pointer' : ''
+                        }`}
+                        onClick={() => item.icon === '🍽️' && setShowDevoreur(true)}
+                      >
                         {item.icon}
                       </div>
                       
@@ -243,6 +249,42 @@ export default function InformationsPage() {
           </div>
         </div>
       </footer>
+
+      {/* Modal easter egg devoreur */}
+      {showDevoreur && (
+        <div
+          className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4 animate-in fade-in duration-300"
+          onClick={() => setShowDevoreur(false)}
+        >
+          <button
+            onClick={() => setShowDevoreur(false)}
+            className="absolute top-4 right-4 text-white hover:text-gray-300 transition-colors z-50 text-3xl font-light bg-black/50 rounded-full w-10 h-10 flex items-center justify-center"
+            aria-label="Fermer"
+          >
+            ×
+          </button>
+          <div 
+            className="relative max-w-7xl max-h-[90vh] w-full h-full flex flex-col items-center justify-center pt-12 sm:pt-4"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="text-center mb-4 z-10 px-4">
+              <p className="text-white text-lg sm:text-xl md:text-2xl font-medium mb-2">
+                🦋 Vous avez trouvé le monstre dévoreur de papillon ! 🦋
+              </p>
+            </div>
+            <div className="relative w-full max-w-4xl aspect-square max-h-[60vh] sm:max-h-[70vh]">
+              <Image
+                src="/devoreur.JPG"
+                alt="Monstre dévoreur de papillon"
+                fill
+                className="object-contain rounded-lg"
+                sizes="100vw"
+                priority
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </main>
   );
 }
