@@ -19,6 +19,7 @@ export default function HeroSection({ startAnimation = true }: { startAnimation?
   const leftPhotoRef = useRef<HTMLDivElement>(null);
   const rightPhotoRef = useRef<HTMLDivElement>(null);
   const [zoomedImage, setZoomedImage] = useState<string | null>(null);
+  const [showKitty, setShowKitty] = useState(false);
 
   useEffect(() => {
     if (!startAnimation) return;
@@ -162,7 +163,13 @@ export default function HeroSection({ startAnimation = true }: { startAnimation?
             <p className="text-red-600 font-display text-xs sm:text-sm md:text-base tracking-[0.3em] uppercase font-medium">
               Nous nous marions
             </p>
-            <span className="text-red-500 text-base sm:text-lg md:text-xl">♥</span>
+            <span 
+              onClick={() => setShowKitty(true)}
+              className="text-red-500 text-base sm:text-lg md:text-xl cursor-pointer hover:scale-110 transition-transform duration-200"
+              title="Easter egg 🐱"
+            >
+              ♥
+            </span>
           </div>
         </div>
         
@@ -261,6 +268,57 @@ export default function HeroSection({ startAnimation = true }: { startAnimation?
               sizes="100vw"
               priority
             />
+          </div>
+        </div>
+      )}
+
+      {/* Modal easter egg kitty */}
+      {showKitty && (
+        <div
+          className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4 animate-in fade-in duration-300"
+          onClick={() => setShowKitty(false)}
+        >
+          <button
+            onClick={() => setShowKitty(false)}
+            className="absolute top-4 right-4 text-white hover:text-gray-300 transition-colors z-10 text-3xl font-light"
+            aria-label="Fermer"
+          >
+            ×
+          </button>
+          <div 
+            className="relative max-w-7xl max-h-[90vh] w-full h-full flex flex-col items-center justify-center"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="text-center mb-4 z-10">
+              <p className="text-white text-lg sm:text-xl md:text-2xl font-medium mb-2">
+                🐱 Tu as trouvé notre chat ! 🐱
+              </p>
+              <p className="text-white/80 text-sm sm:text-base italic">
+                Il sera aussi présent pour notre mariage (en photo) 😸
+              </p>
+            </div>
+            <div className="flex flex-col sm:flex-row gap-4 w-full max-w-5xl items-center justify-center">
+              <div className="relative w-full sm:w-1/2 aspect-square max-h-[40vh] sm:max-h-[60vh]">
+                <Image
+                  src="/kitty.jpeg"
+                  alt="Easter egg 🐱"
+                  fill
+                  className="object-contain rounded-lg"
+                  sizes="(max-width: 640px) 100vw, 50vw"
+                  priority
+                />
+              </div>
+              <div className="relative w-full sm:w-1/2 aspect-square max-h-[40vh] sm:max-h-[60vh]">
+                <Image
+                  src="/kitty2.jpeg"
+                  alt="Easter egg 🐱"
+                  fill
+                  className="object-contain rounded-lg"
+                  sizes="(max-width: 640px) 100vw, 50vw"
+                  priority
+                />
+              </div>
+            </div>
           </div>
         </div>
       )}

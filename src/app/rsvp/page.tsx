@@ -31,6 +31,7 @@ export default function RSVPPage() {
   const [loading, setLoading] = useState(true);
   const [step, setStep] = useState(1);
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -146,6 +147,13 @@ export default function RSVPPage() {
   const handleSubmit = async (e?: React.FormEvent) => {
     if (e) e.preventDefault();
 
+    // Protection contre les doubles soumissions
+    if (isSubmitting || submitted) {
+      return;
+    }
+
+    setIsSubmitting(true);
+
     // Construction du texte de logement
     let lodgingText = 'Pas de logement souhaité.';
     if (formData.isFamilyPreBooked) {
@@ -201,15 +209,18 @@ En attente d'un partenaire : ${formData.waitingForPartner ? 'OUI' : 'NON'}
       if (error) {
         console.error('Error inserting guest:', error);
         alert("Une erreur est survenue lors de l'enregistrement de votre réponse. Vous pouvez réessayer dans quelques instants.");
+        setIsSubmitting(false);
         return;
       }
     } catch (err) {
       console.error('Unexpected error inserting guest:', err);
       alert("Une erreur est survenue lors de l'enregistrement de votre réponse. Vous pouvez réessayer dans quelques instants.");
+      setIsSubmitting(false);
       return;
     }
 
     setSubmitted(true);
+    setIsSubmitting(false);
   };
 
   return (
@@ -347,9 +358,14 @@ En attente d'un partenaire : ${formData.waitingForPartner ? 'OUI' : 'NON'}
 
                 <button
                   onClick={nextStep}
-                  className="w-full py-4 bg-red-700 text-white rounded-xl font-medium tracking-wide shadow-lg hover:bg-red-800 transition-all hover:scale-[1.01]"
+                  disabled={isSubmitting}
+                  className={`w-full py-4 bg-red-700 text-white rounded-xl font-medium tracking-wide shadow-lg transition-all ${
+                    isSubmitting 
+                      ? 'opacity-50 cursor-not-allowed' 
+                      : 'hover:bg-red-800 hover:scale-[1.01]'
+                  }`}
                 >
-                  {formData.attendance === 'no' ? 'Confirmer mon absence' : 'Continuer'}
+                  {isSubmitting ? 'Envoi en cours...' : (formData.attendance === 'no' ? 'Confirmer mon absence' : 'Continuer')}
                 </button>
               </div>
             )}
@@ -476,9 +492,14 @@ En attente d'un partenaire : ${formData.waitingForPartner ? 'OUI' : 'NON'}
 
                 <button
                   onClick={nextStep}
-                  className="w-full py-4 bg-red-700 text-white rounded-xl font-medium tracking-wide shadow-lg hover:bg-red-800 transition-all hover:scale-[1.01]"
+                  disabled={isSubmitting}
+                  className={`w-full py-4 bg-red-700 text-white rounded-xl font-medium tracking-wide shadow-lg transition-all ${
+                    isSubmitting 
+                      ? 'opacity-50 cursor-not-allowed' 
+                      : 'hover:bg-red-800 hover:scale-[1.01]'
+                  }`}
                 >
-                  Continuer
+                  {isSubmitting ? 'Envoi en cours...' : 'Continuer'}
                 </button>
               </div>
             )}
@@ -550,9 +571,14 @@ En attente d'un partenaire : ${formData.waitingForPartner ? 'OUI' : 'NON'}
 
                 <button
                   onClick={nextStep}
-                  className="w-full py-4 bg-red-700 text-white rounded-xl font-medium tracking-wide shadow-lg hover:bg-red-800 transition-all hover:scale-[1.01]"
+                  disabled={isSubmitting}
+                  className={`w-full py-4 bg-red-700 text-white rounded-xl font-medium tracking-wide shadow-lg transition-all ${
+                    isSubmitting 
+                      ? 'opacity-50 cursor-not-allowed' 
+                      : 'hover:bg-red-800 hover:scale-[1.01]'
+                  }`}
                 >
-                  {formData.wantsLodging && !formData.isFamilyPreBooked ? 'Choisir ma chambre' : 'Terminer mon inscription'}
+                  {isSubmitting ? 'Envoi en cours...' : (formData.wantsLodging && !formData.isFamilyPreBooked ? 'Choisir ma chambre' : 'Terminer mon inscription')}
                 </button>
               </div>
             )}
@@ -658,13 +684,13 @@ En attente d'un partenaire : ${formData.waitingForPartner ? 'OUI' : 'NON'}
 
                 <button
                   onClick={handleSubmit}
-                  disabled={!formData.selectedRoomId}
+                  disabled={!formData.selectedRoomId || isSubmitting}
                   className={`w-full py-4 rounded-xl font-medium tracking-wide shadow-lg transition-all
-                    ${formData.selectedRoomId 
-                      ? 'bg-red-700 text-white hover:bg-red-800 hover:scale-[1.01]' 
-                      : 'bg-gray-200 text-gray-400 cursor-not-allowed'}`}
+                    ${!formData.selectedRoomId || isSubmitting
+                      ? 'bg-gray-200 text-gray-400 cursor-not-allowed' 
+                      : 'bg-red-700 text-white hover:bg-red-800 hover:scale-[1.01]'}`}
                 >
-                  Valider et envoyer
+                  {isSubmitting ? 'Envoi en cours...' : 'Valider et envoyer'}
                 </button>
               </div>
             )}
